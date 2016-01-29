@@ -9,7 +9,8 @@
     ]
   },
   "scripts": {
-    "preview": "./node_modules/.bin/browserify -d -t [ reactify --es6 ] preview.jsx -o build/preview.js"
+    "preview": "./node_modules/.bin/browserify -d -t [ reactify --es6 ] preview.jsx -o build/preview.js",
+    "watch": "./node_modules/.bin/watchify -d -t [ reactify --es6 ] js/*.jsx preview.jsx -o build/preview.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,11 @@
   "license": {
     "type": "MIT",
     "url": "https://github.com/tommoor/emojione-picker/blob/master/LICENSE.md"
+  },
+  "peerDependencies": {
+    "underscore": "~1.6.0",
+    "emojione": "^2.0.1",
+    "react": "~0.14.0-rc1"
   },
   "devDependencies": {
     "browserify": "^10.0.0",
