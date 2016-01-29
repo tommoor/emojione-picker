@@ -43,7 +43,10 @@ var categories = {
 
 ## Development
 
+`npm install`
 `npm run preview`
+
+Open `examples/index.html` in a browser to see a preview of the picker.
 
 ## License
 
