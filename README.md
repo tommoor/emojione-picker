@@ -22,6 +22,14 @@ var EmojiPicker = require('emojione-picker/js/picker.jsx');
 
 The module also includes CSS at `css/picker.css` which you can copy and edit or ideally reference directly from within the node_modules directory.
 
+### Filtering
+
+You can pass in a search term to filter which emoji's are displayed by default, for example:
+
+```javascript
+<EmojiPicker search="smile" />
+```
+
 ### Customization
 
 You can easily customize the category icons by passing in alternatives to the component constructor. The icon strings come from the shortname value in strategy.js

@@ -1,9 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Picker = require('./js/picker.jsx');
+var EmojiPicker = require('./js/picker.jsx');
 
 var logChoice = function(emoji) {
   console.log(emoji);
 }
 
-ReactDOM.render(<Picker onChange={logChoice}/>, document.getElementById('example'));
+ReactDOM.render(<EmojiPicker onChange={logChoice}/>, document.getElementById('example1'));
+
+ReactDOM.render(<EmojiPicker search="smile" onChange={logChoice}/>, document.getElementById('example2'));

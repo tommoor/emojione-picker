@@ -73,6 +73,7 @@
 }
 
 .emoji-dialog .emoji-category-header {
+  margin-top: 10px;
   margin-bottom: 5px;
   font-size: 18px;
   font-family: sans-serif;

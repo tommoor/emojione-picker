@@ -5,6 +5,7 @@ var _ = require("underscore");
 
 var Picker = React.createClass({
     propTypes: {
+      search: "",
       onChange: React.PropTypes.func.isRequired
     },
     
@@ -68,6 +69,7 @@ var Picker = React.createClass({
       var sections = [];
       var onChange = this.props.onChange;
       var jumpToCategory = this.jumpToCategory;
+      var search = this.props.search;
       
       _.each(this.props.categories, function(shortname, category) {
         emojis[category] = [];
@@ -76,9 +78,11 @@ var Picker = React.createClass({
       _.each(strategy, function(value, key) {
         // TODO: skipping modifiers for this first version
         if (emojis[value.category]) {
-          emojis[value.category].push(value);
+          if (!search || value.keywords.some(function(keyword) { return new RegExp("^"+search).test(keyword); })){
+            emojis[value.category].push(value);
+          }
         }
-      });
+      }.bind(this));
       
       _.each(this.props.categories, function(shortname, category) {
         headers.push(<li key={category} className={this.state.category == category ? "active" : ""}>
@@ -89,16 +93,19 @@ var Picker = React.createClass({
       }.bind(this));
 
       _.each(emojis, function(list, category) {
-        list = _.map(list, function(data){
-          return <li key={data.unicode}><Emoji {...data} onClick={function(){
-            onChange(data);
-          }}/></li>;
-        });
+        // don't render empty categories
+        if (list.length) {
+          list = _.map(list, function(data){
+            return <li key={data.unicode}><Emoji {...data} onClick={function(){
+              onChange(data);
+            }}/></li>;
+          });
         
-        sections.push(<div className="emoji-category" key={category} ref={category}>
-          <h2 className="emoji-category-header">{category}</h2>
-          <ul className="emoji-category-list">{list}</ul>
-        </div>);
+          sections.push(<div className="emoji-category" key={category} ref={category}>
+            <h2 className="emoji-category-header">{category}</h2>
+            <ul className="emoji-category-list">{list}</ul>
+          </div>);
+        }
       });
       
       return <div className="emoji-dialog">
