@@ -5,12 +5,13 @@ var _ = require("underscore");
 
 var Picker = React.createClass({
     propTypes: {
-      search: "",
+      search: React.PropTypes.string,
       onChange: React.PropTypes.func.isRequired
     },
     
     getDefaultProps: function() {
       return {
+        search: "",
         categories: {
           people: 'smile',
           nature: 'hamster',
@@ -47,7 +48,7 @@ var Picker = React.createClass({
       var selected;
       
       _.each(this.props.categories, function(shortname, category) {
-        if (scrollTop >= refs[category].offsetTop-padding) {
+        if (refs[category] && scrollTop >= refs[category].offsetTop-padding) {
           selected = category;
         }
       });
@@ -86,7 +87,7 @@ var Picker = React.createClass({
       
       _.each(this.props.categories, function(shortname, category) {
         headers.push(<li key={category} className={this.state.category == category ? "active" : ""}>
-          <Emoji shortname={":"+shortname+":"} onClick={function(){
+          <Emoji role="menuitem" aria-label={category + " category"} shortname={":"+shortname+":"} onClick={function(){
             jumpToCategory(category);
           }}/>
         </li>)
@@ -96,7 +97,7 @@ var Picker = React.createClass({
         // don't render empty categories
         if (list.length) {
           list = _.map(list, function(data){
-            return <li key={data.unicode}><Emoji {...data} onClick={function(){
+            return <li key={data.unicode}><Emoji {...data} aria-label={data.name} role="option" onClick={function(){
               onChange(data);
             }}/></li>;
           });
@@ -108,11 +109,11 @@ var Picker = React.createClass({
         }
       });
       
-      return <div className="emoji-dialog">
-        <header className="emoji-dialog-header">
+      return <div className="emoji-dialog" role="dialog">
+        <header className="emoji-dialog-header" role="menu">
           <ul>{headers}</ul>
         </header>
-        <div className="emoji-grandlist" ref="grandlist">
+        <div className="emoji-grandlist" ref="grandlist" role="listbox">
           {sections}
         </div>
       </div>
@@ -129,7 +130,7 @@ var Emoji = React.createClass({
   },
   
   render: function() {
-    return <div onClick={this.props.onClick} className="emoji" 
+    return <div {...this.props} onClick={this.props.onClick} tabIndex="0" className="emoji" 
                 title={this.props.name} 
                 dangerouslySetInnerHTML={this.createMarkup()}>
     </div>
