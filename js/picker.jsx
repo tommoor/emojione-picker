@@ -11,11 +11,11 @@ var Picker = React.createClass({
     getDefaultProps: function() {
       return {
         categories: {
-          people: 'grin',
+          people: 'smile',
           nature: 'hamster',
           foods: 'pizza',
           activity: 'football',
-          travel: 'red_car',
+          travel: 'earth_americas',
           objects: 'bulb',
           symbols: 'clock9',
           flags: 'flag_gb'
@@ -30,7 +30,33 @@ var Picker = React.createClass({
       };
     },
     
-    scrollToCategory: function(name) {
+    componentDidMount: function() {
+      this.refs.grandlist.addEventListener('scroll', this.updateActiveCategory);
+      this.updateActiveCategory();
+    },
+    
+    componentWillUnmount: function() {
+      this.refs.grandlist.removeEventListener('scroll', this.updateActiveCategory);
+    },
+    
+    updateActiveCategory:  _.throttle(function() {
+      var scrollTop = this.refs.grandlist.scrollTop;
+      var refs = this.refs;
+      var padding = 10;
+      var selected;
+      
+      _.each(this.props.categories, function(shortname, category) {
+        if (scrollTop >= refs[category].offsetTop-padding) {
+          selected = category;
+        }
+      });
+      
+      if (this.state.category != selected) {
+        this.setState({category: selected});
+      }
+    }, 100),
+    
+    jumpToCategory: function(name) {
       var offsetTop = this.refs[name].offsetTop;
       var padding = 5;
       this.refs.grandlist.scrollTop = offsetTop-padding;
@@ -41,9 +67,9 @@ var Picker = React.createClass({
       var emojis = {};
       var sections = [];
       var onChange = this.props.onChange;
-      var scrollToCategory = this.scrollToCategory;
+      var jumpToCategory = this.jumpToCategory;
       
-      _.each(this.props.categories, function(shortcode, category) {
+      _.each(this.props.categories, function(shortname, category) {
         emojis[category] = [];
       });
       
@@ -55,12 +81,12 @@ var Picker = React.createClass({
       });
       
       _.each(this.props.categories, function(shortname, category) {
-        headers.push(<li key={category}>
+        headers.push(<li key={category} className={this.state.category == category ? "active" : ""}>
           <Emoji shortname={":"+shortname+":"} onClick={function(){
-            scrollToCategory(category);
+            jumpToCategory(category);
           }}/>
         </li>)
-      });
+      }.bind(this));
 
       _.each(emojis, function(list, category) {
         list = _.map(list, function(data){
