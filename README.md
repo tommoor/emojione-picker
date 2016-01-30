@@ -8,12 +8,13 @@ A friendly Emoji picker for Emojione written as a React component. It looks a li
 
 `npm install emojione-picker`
 
+
 ## Usage
 
-It's probably easiest to reference the picker JSX file directly and have your current transformation pipeline take care of JSX>JS conversion, something like so:
+The npm module includes a pre-transpiled version of the picker so you don't need to run it through your JSX pipeline. Simply require the module like any other.
 
 ```javascript
-var EmojiPicker = require('emojione-picker/js/picker.jsx');
+var EmojiPicker = require('emojione-picker');
 
 <EmojiPicker onChange={function(data){
   console.log("Emoji chosen", data);
