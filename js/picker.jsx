@@ -27,8 +27,7 @@ var Picker = React.createClass({
     
     getInitialState: function() {
       return { 
-        category: false,
-        hovering: false
+        category: false
       };
     },
     
@@ -74,7 +73,13 @@ var Picker = React.createClass({
       
       _.each(this.props.categories, function(shortname, category) {
         emojis[category] = [];
-      });
+        
+        headers.push(<li key={category} className={this.state.category == category ? "active" : ""}>
+          <Emoji role="menuitem" aria-label={category + " category"} shortname={":"+shortname+":"} onClick={function(){
+            jumpToCategory(category);
+          }}/>
+        </li>)
+      }.bind(this));
       
       _.each(strategy, function(value, key) {
         // TODO: skipping modifiers for this first version
@@ -85,14 +90,6 @@ var Picker = React.createClass({
         }
       }.bind(this));
       
-      _.each(this.props.categories, function(shortname, category) {
-        headers.push(<li key={category} className={this.state.category == category ? "active" : ""}>
-          <Emoji role="menuitem" aria-label={category + " category"} shortname={":"+shortname+":"} onClick={function(){
-            jumpToCategory(category);
-          }}/>
-        </li>)
-      }.bind(this));
-
       _.each(emojis, function(list, category) {
         // don't render empty categories
         if (list.length) {
