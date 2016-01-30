@@ -27,6 +27,7 @@ var Picker = React.createClass({
     getInitialState: function() {
       return { 
         category: false,
+        rendered: 0,
         term: this.props.search !== true ? this.props.search : ""
       };
     },
@@ -43,6 +44,16 @@ var Picker = React.createClass({
     componentWillReceiveProps: function(nextProps) {
       if (this.props.search != nextProps.search) {
         this.setState({term: this.props.search});
+      }
+    },
+    
+    componentDidUpdate: function(prevProps, prevState) {
+      if (this.state.rendered < Object.keys(this.props.categories).length) {
+        setTimeout(function(){
+          if (this.isMounted()) {
+            this.setState({rendered: this.state.rendered+1});
+          }
+        }.bind(this), 0);
       }
     },
     
@@ -83,41 +94,49 @@ var Picker = React.createClass({
       var term = this.state.term;
       var searchInput;
       
-      _.each(this.props.categories, function(shortname, category) {
-        emojis[category] = [];
-        
-        headers.push(<li key={category} className={this.state.category == category ? "active" : ""}>
-          <Emoji role="menuitem" aria-label={category + " category"} shortname={":"+shortname+":"} onClick={function(){
-            jumpToCategory(category);
+      // category headers
+      _.each(this.props.categories, function(shortname, key){
+        shortname = ":"+shortname+":";
+        emojis[key] = [];
+      
+        headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
+          <Emoji role="menuitem" aria-label={key + " category"} shortname={shortname} onClick={function(){
+            jumpToCategory(key);
           }}/>
-        </li>)
+        </li>);
       }.bind(this));
       
-      _.each(strategy, function(value, key) {
-        // TODO: skipping modifiers for this first version
+      // filter and categorise emoji
+      for (var key in strategy) {
+        var value = strategy[key];
+
+        // skip unknown categories
         if (emojis[value.category]) {
           if (!search || !term || value.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })){
             emojis[value.category].push(value);
           }
         }
-      }.bind(this));
+      }
       
-      _.each(emojis, function(list, category) {
-        // don't render empty categories
-        if (list.length) {
+      // render emoji in category sized chunks to help prevent UI lockup
+      var i = 0;
+      _.each(emojis, function(list, key){
+        if (list.length && i < this.state.rendered) {
           list = _.map(list, function(data){
             return <li key={data.unicode}><Emoji {...data} aria-label={data.name} role="option" onClick={function(){
               onChange(data);
             }}/></li>;
           });
-        
-          sections.push(<div className="emoji-category" key={category} ref={category}>
-            <h2 className="emoji-category-header">{category}</h2>
+          
+          sections.push(<div className="emoji-category" key={key} ref={key}>
+            <h2 className="emoji-category-header">{key}</h2>
             <ul className="emoji-category-list">{list}</ul>
           </div>);
         }
-      });
+        i++;
+      }.bind(this));
       
+      // optionally render a search field
       if (this.props.search === true) {
         searchInput = <div className="emoji-search-wrapper">
           <input className="emoji-search" type="search" placeholder="Search..." ref="search" onChange={this.updateSearchTerm} />
@@ -139,6 +158,11 @@ var Picker = React.createClass({
 var Emoji = React.createClass({
   propTypes: {
     onClick: React.PropTypes.func
+  },
+  
+  shouldComponentUpdate: function(nextProps, nextState) {
+    // avoid rerendering the Emoji component if the shortname hasnt changed
+    return nextProps.shortname != this.props.shortname;
   },
   
   createMarkup: function() {
