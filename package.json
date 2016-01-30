@@ -1,6 +1,6 @@
 {
   "name": "emojione-picker",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Tom Moor",
   "description": "An emoji picker in React",
   "browserify": {
@@ -24,9 +24,9 @@
     "url": "https://github.com/tommoor/emojione-picker/blob/master/LICENSE.md"
   },
   "peerDependencies": {
-    "underscore": "~1.6.0",
+    "underscore": ">=1.8.0",
     "emojione": "^2.0.1",
-    "react": "~0.14.0-rc1"
+    "react": ">=0.14.0"
   },
   "devDependencies": {
     "browserify": "^10.0.0",
@@ -37,7 +37,7 @@
     "react-dom": "~0.14.0-rc1",
     "react-tools": "~0.12.0",
     "reactify": "git://github.com/andreypopp/reactify.git#c1b0e15eca9d5e663f34f372682723d5fb4f15af",
-    "underscore": "~1.6.0",
+    "underscore": "^1.8.3",
     "watchify": "^3.2.2"
   }
 }
