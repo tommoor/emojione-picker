@@ -24,11 +24,19 @@ The module also includes CSS at `css/picker.css` which you can copy and edit or 
 
 ### Filtering
 
-You can pass in a search term to filter which emoji's are displayed by default, for example:
+You can manually pass in a search term as a component prop to filter which emoji's are displayed by default, for example:
 
 ```javascript
 <EmojiPicker search="smile" />
 ```
+
+Or allow the user to search by passing a boolean true, this will enable a search input within the picker:
+
+```javascript
+<EmojiPicker search={true} />
+```
+
+![Emoji Picker](https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot-search.png)
 
 ### Customization
 

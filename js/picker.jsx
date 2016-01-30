@@ -5,7 +5,6 @@ var _ = require("underscore");
 
 var Picker = React.createClass({
     propTypes: {
-      search: React.PropTypes.string,
       onChange: React.PropTypes.func.isRequired
     },
     
@@ -27,7 +26,8 @@ var Picker = React.createClass({
     
     getInitialState: function() {
       return { 
-        category: false
+        category: false,
+        term: this.props.search !== true ? this.props.search : ""
       };
     },
     
@@ -38,6 +38,16 @@ var Picker = React.createClass({
     
     componentWillUnmount: function() {
       this.refs.grandlist.removeEventListener('scroll', this.updateActiveCategory);
+    },
+    
+    componentWillReceiveProps: function(nextProps) {
+      if (this.props.search != nextProps.search) {
+        this.setState({term: this.props.search});
+      }
+    },
+    
+    updateSearchTerm: function() {
+      this.setState({term: this.refs.search.value});
     },
     
     updateActiveCategory:  _.throttle(function() {
@@ -70,6 +80,8 @@ var Picker = React.createClass({
       var onChange = this.props.onChange;
       var jumpToCategory = this.jumpToCategory;
       var search = this.props.search;
+      var term = this.state.term;
+      var searchInput;
       
       _.each(this.props.categories, function(shortname, category) {
         emojis[category] = [];
@@ -84,7 +96,7 @@ var Picker = React.createClass({
       _.each(strategy, function(value, key) {
         // TODO: skipping modifiers for this first version
         if (emojis[value.category]) {
-          if (!search || value.keywords.some(function(keyword) { return new RegExp("^"+search).test(keyword); })){
+          if (!search || !term || value.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })){
             emojis[value.category].push(value);
           }
         }
@@ -106,11 +118,18 @@ var Picker = React.createClass({
         }
       });
       
+      if (this.props.search === true) {
+        searchInput = <div className="emoji-search-wrapper">
+          <input className="emoji-search" type="search" placeholder="Search..." ref="search" onChange={this.updateSearchTerm} />
+        </div>;
+      }
+      
       return <div className="emoji-dialog" role="dialog">
         <header className="emoji-dialog-header" role="menu">
           <ul>{headers}</ul>
         </header>
         <div className="emoji-grandlist" ref="grandlist" role="listbox">
+          {searchInput}
           {sections}
         </div>
       </div>

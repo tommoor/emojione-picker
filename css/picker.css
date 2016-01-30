@@ -82,6 +82,21 @@
   padding: 0 4px;
 }
 
+.emoji-dialog .emoji-search-wrapper {
+  border: 0;
+  border-bottom: 1px solid #efefef;
+  font-size: 12px;
+  width: 266px;
+  margin: -5px -5px 0 -5px;
+}
+
+.emoji-dialog .emoji-search {
+  font-size: 12px;
+  padding: 6px 4px;
+  width: 100%;
+  border: 0;
+}
+
 .emoji-dialog .emoji-category-header::first-letter {
   text-transform: uppercase;
 }
