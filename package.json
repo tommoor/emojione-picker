@@ -1,6 +1,6 @@
 {
   "name": "emojione-picker",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": "Tom Moor",
   "description": "An emoji picker in React",
   "main": "lib/picker.js",
@@ -17,6 +17,12 @@
     "url": "https://github.com/tommoor/emojione-picker/issues"
   },
   "license": "MIT",
+  "keywords": [
+    "react-component",
+    "emoji",
+    "picker",
+    "dialog"
+  ],
   "peerDependencies": {
     "underscore": ">=1.8.0",
     "emojione": "^2.0.1",
