@@ -2,7 +2,7 @@
 
 A friendly Emoji picker for Emojione written as a React component. It looks a little something like this, but is easily customized:
 
-![Emoji Picker](https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot.png)
+<img src="https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot.png" alt="Emoji Picker" style="max-width:100%;" width="288px">
 
 ## Installation
 
@@ -36,7 +36,7 @@ Or allow the user to search by passing a boolean true, this will enable a search
 <EmojiPicker search={true} />
 ```
 
-![Emoji Picker](https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot-search.png)
+<img src="https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot-search.png" alt="Emoji Picker with Search" style="max-width:100%;" width="288px">
 
 ### Customization
 
