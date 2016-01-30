@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var EmojiPicker = require('./js/picker.jsx');
+var EmojiPicker = require('./src/picker.jsx');
 
 var logChoice = function(emoji) {
   console.log(emoji);
