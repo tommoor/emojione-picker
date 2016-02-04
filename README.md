@@ -41,18 +41,22 @@ Or allow the user to search by passing a boolean true, this will enable a search
 
 ### Customization
 
-You can easily customize the category icons by passing in alternatives to the component constructor. The icon strings come from the shortname value in strategy.js
+You can easily customize the category icons by passing in alternatives to the component constructor. The emoji strings come from the shortname value in strategy.js
 
 ```javascript
 var categories = {
-  people: 'smile',
-  nature: 'mouse',
-  foods: 'burger',
-  activity: 'soccer',
-  travel: 'earth_asia',
-  objects: 'bulb',
-  symbols: 'clock9',
-  flags: 'flag_cn'
+  people: {
+    title:'People',
+    emoji: 'smile'
+  },
+  nature: {
+    title: 'Nature',
+    emoji: 'mouse'
+  },
+  foods: {
+    title: 'Food & Drink',
+    emoji: 'burger'
+  }
 }
 
 <EmojiPicker categories={categories} />

@@ -1,6 +1,6 @@
 {
   "name": "emojione-picker",
-  "version": "0.2.5",
+  "version": "0.3.5",
   "author": "Tom Moor",
   "description": "An emoji picker in React",
   "main": "lib/picker.js",

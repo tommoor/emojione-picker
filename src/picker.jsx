@@ -12,14 +12,38 @@ var Picker = React.createClass({
       return {
         search: "",
         categories: {
-          people: 'smile',
-          nature: 'hamster',
-          foods: 'pizza',
-          activity: 'football',
-          travel: 'earth_americas',
-          objects: 'bulb',
-          symbols: 'clock9',
-          flags: 'flag_gb'
+          people: {
+            title:'People',
+            emoji: 'smile'
+          },
+          nature: {
+            title: 'Nature',
+            emoji: 'hamster'
+          },
+          foods: {
+            title: 'Food & Drink',
+            emoji: 'pizza'
+          },
+          activity: {
+            title: 'Activity',
+            emoji: 'football'
+          },
+          travel: {
+            title: 'Travel & Places',
+            emoji: 'earth_americas'
+          },
+          objects: {
+            title: 'Objects',
+            emoji: 'bulb'
+          },
+          symbols: {
+            title: 'Symbols',
+            emoji: 'clock9'
+          },
+          flags: {
+            title: 'Flags',
+            emoji: 'flag_gb'
+          }
         }
       }
     },
@@ -57,6 +81,11 @@ var Picker = React.createClass({
       }
     },
     
+    getCategoryTitle: function(key) {
+      var details = this.props.categories[key];
+      return details ? details.title : "";
+    },
+    
     updateSearchTerm: function() {
       this.setState({term: this.refs.search.value});
     },
@@ -67,7 +96,7 @@ var Picker = React.createClass({
       var padding = 10;
       var selected;
       
-      _.each(this.props.categories, function(shortname, category) {
+      _.each(this.props.categories, function(details, category) {
         if (refs[category] && scrollTop >= refs[category].offsetTop-padding) {
           selected = category;
         }
@@ -95,8 +124,8 @@ var Picker = React.createClass({
       var searchInput;
       
       // category headers
-      _.each(this.props.categories, function(shortname, key){
-        shortname = ":"+shortname+":";
+      _.each(this.props.categories, function(details, key){
+        var shortname = ":"+details.emoji+":";
         emojis[key] = [];
       
         headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
@@ -129,7 +158,7 @@ var Picker = React.createClass({
           });
           
           sections.push(<div className="emoji-category" key={key} ref={key}>
-            <h2 className="emoji-category-header">{key}</h2>
+            <h2 className="emoji-category-header">{this.getCategoryTitle(key)}</h2>
             <ul className="emoji-category-list">{list}</ul>
           </div>);
         }
