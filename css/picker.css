@@ -98,6 +98,10 @@
   right: 15px;
 }
 
+.emoji-dialog.with-search .modifiers {
+  top: 52px;
+}
+
 .emoji-dialog .modifiers li {
   display: inline-block;
   padding: 0 2px;
@@ -134,18 +138,15 @@
 }
 
 .emoji-dialog .emoji-search-wrapper {
-  border: 0;
-  border-bottom: 1px solid #efefef;
-  font-size: 12px;
-  width: 266px;
-  margin: -5px -5px 0 -5px;
+  padding: 0 5px;
 }
 
 .emoji-dialog .emoji-search {
   font-size: 12px;
   padding: 6px 4px;
   width: 100%;
-  border: 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .emoji-dialog .emoji-category-list li:hover {

@@ -21,7 +21,7 @@ var EmojiPicker = require('emojione-picker');
 }} />
 ```
 
-The module also includes CSS at `css/picker.css` which you can copy and edit or ideally reference directly from within the node_modules directory.
+The module also includes CSS at `css/picker.css` which you can copy and edit or ideally reference directly from within the node_modules directory. Let me know if you're using this in production - i'd love to see it in action!
 
 ### Filtering
 

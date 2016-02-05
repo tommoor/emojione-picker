@@ -194,6 +194,13 @@ var Picker = React.createClass({
       return sections;
     },
     
+    getModifiers: function() {
+      // we hide the color tone modifiers when searching to reduce clutter
+      if (!this.state.term) {
+        return <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />
+      }
+    },
+    
     getSearchInput: function() {
       if (this.props.search === true) {
         return <div className="emoji-search-wrapper">
@@ -203,12 +210,15 @@ var Picker = React.createClass({
     },
     
     render: function() {
-      return <div className="emoji-dialog" role="dialog">
+      var classes = 'emoji-dialog'
+      if (this.props.search === true) classes += ' with-search';
+      
+      return <div className={classes} role="dialog">
         <header className="emoji-dialog-header" role="menu">
           <ul>{this.getCategories()}</ul>
         </header>
         <div className="emoji-grandlist" ref="grandlist" role="listbox">
-          <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />
+          {this.getModifiers()}
           {this.getSearchInput()}
           {this.getEmojis()}
         </div>
