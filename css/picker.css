@@ -1,5 +1,5 @@
 .emoji-dialog {
-  width: 266px;
+  width: 276px;
   height: 220px;
   background: #fff;
   box-sizing: border-box;
@@ -16,8 +16,8 @@
   left: 0;
   right: 0;
   height: 42px;
-  padding: 0 5px;
-  background-color: #f6f9fc;
+  padding: 0 10px;
+  background-color: #F5F7F9;
 }
 
 .emoji-dialog .emoji-dialog-header ul {
@@ -34,13 +34,20 @@
   padding: 9px 4px;
 }
 
+.emoji-dialog .emoji-dialog-header img {
+  width: 22px;
+  height: 22px;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
 .emoji-dialog .emoji-dialog-header li.active {
   background: #fff;
 }
 
-.emoji-dialog .emoji-dialog-header img {
-  width: 22px;
-  height: 22px;
+.emoji-dialog .emoji-dialog-header li.active img {
+  -webkit-filter: grayscale(0);
+  filter: grayscale(0);
 }
 
 .emoji-dialog .emoji-grandlist {
@@ -49,7 +56,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 5px;
+  padding: 10px;
   box-sizing: border-box;
   width: 100%;
   height: calc(100% - 42px);
@@ -74,12 +81,56 @@
 
 .emoji-dialog .emoji-category-header {
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: 18px;
   font-family: sans-serif;
   font-weight: normal;
   color: #444;
   padding: 0 4px;
+}
+
+.emoji-dialog .modifiers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 22px;
+  right: 15px;
+}
+
+.emoji-dialog .modifiers li {
+  display: inline-block;
+  padding: 0 2px;
+}
+
+.emoji-dialog .modifiers .modifier {
+  display: inline-block;
+  border-radius: 10px;
+  width: 15px;
+  height: 15px;
+  position: relative;
+}
+
+.emoji-dialog .modifiers .modifier.active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  top: 2px;
+  left: 2px;
+}
+
+.emoji-dialog .modifiers li:hover {
+  -moz-transition-duration: 200ms;
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+  
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .emoji-dialog .emoji-search-wrapper {
@@ -97,12 +148,8 @@
   border: 0;
 }
 
-.emoji-dialog .emoji-category-header::first-letter {
-  text-transform: uppercase;
-}
-
 .emoji-dialog .emoji-category-list li:hover {
-  background: #f6f9fc;
+  background: #F5F7F9;
 }
 
 .emoji-dialog .emoji-category-list .emoji img {

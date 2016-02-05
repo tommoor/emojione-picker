@@ -6,8 +6,8 @@
   "main": "lib/picker.js",
   "scripts": {
     "build": "babel src -d lib",
-    "preview": "./node_modules/.bin/browserify -d -t [ reactify --es6 ] preview.jsx -o lib/preview.js",
-    "watch": "./node_modules/.bin/watchify -d -t [ reactify --es6 ] src/*.jsx preview.jsx -o lib/preview.js"
+    "preview": "./node_modules/.bin/browserify --extension=.jsx -d -t [ reactify --es6 ] preview.jsx -o lib/preview.js",
+    "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ reactify --es6 ] src/*.jsx preview.jsx -o lib/preview.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,9 @@
     "picker",
     "dialog"
   ],
+  "dependencies": {
+    "store": "^1.3.20"
+  },
   "peerDependencies": {
     "underscore": ">=1.8.0",
     "emojione": "^2.0.1",

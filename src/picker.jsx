@@ -1,6 +1,9 @@
 var React = require("react");
+var Emoji = require("./emoji");
+var Modifiers = require("./modifiers");
 var strategy = require("./strategy");
 var emojione = require("emojione");
+var store = require("store");
 var _ = require("underscore");
 
 var Picker = React.createClass({
@@ -26,7 +29,7 @@ var Picker = React.createClass({
           },
           activity: {
             title: 'Activity',
-            emoji: 'football'
+            emoji: 'soccer'
           },
           travel: {
             title: 'Travel & Places',
@@ -49,9 +52,11 @@ var Picker = React.createClass({
     },
     
     getInitialState: function() {
-      return { 
-        category: false,
+      return {
+        emojis: [],
+        modifier: store.get('emoji-modifier') || 0,
         rendered: 0,
+        category: false,
         term: this.props.search !== true ? this.props.search : ""
       };
     },
@@ -59,6 +64,7 @@ var Picker = React.createClass({
     componentDidMount: function() {
       this.refs.grandlist.addEventListener('scroll', this.updateActiveCategory);
       this.updateActiveCategory();
+      this.setState({emojis: this.emojisFromStrategy(strategy)});
     },
     
     componentWillUnmount: function() {
@@ -81,26 +87,50 @@ var Picker = React.createClass({
       }
     },
     
-    getCategoryTitle: function(key) {
-      var details = this.props.categories[key];
-      return details ? details.title : "";
-    },
-    
     updateSearchTerm: function() {
       this.setState({term: this.refs.search.value});
     },
     
+    updateActiveModifier: function(modifier) {
+      this.setState({modifier: modifier});
+      store.set('emoji-modifier', modifier);
+    },
+    
+    emojisFromStrategy: function(strategy) {
+      var emojis = {};
+      
+      // categorise and nest emoji
+      // TODO: this could be done as a preprocess.
+      for (var key in strategy) {
+        var value = strategy[key];
+
+        // skip unknown categories
+        if (value.category !== 'modifier') {
+          if (!emojis[value.category]) emojis[value.category] = {};
+          var match = key.match(/(.*?)_tone(.*?)$/);
+          
+          // this does rely on the modifer emojis coming later in strategy
+          if (match) {
+            emojis[value.category][match[1]][match[2]] = value;
+          } else {
+            emojis[value.category][key] = [value];
+          }
+        }
+      }
+      
+      return emojis;
+    },
+    
     updateActiveCategory:  _.throttle(function() {
       var scrollTop = this.refs.grandlist.scrollTop;
-      var refs = this.refs;
       var padding = 10;
-      var selected;
+      var selected = 'people';
       
       _.each(this.props.categories, function(details, category) {
-        if (refs[category] && scrollTop >= refs[category].offsetTop-padding) {
+        if (this.refs[category] && scrollTop >= this.refs[category].offsetTop-padding) {
           selected = category;
         }
-      });
+      }.bind(this));
       
       if (this.state.category != selected) {
         this.setState({category: selected});
@@ -113,97 +143,77 @@ var Picker = React.createClass({
       this.refs.grandlist.scrollTop = offsetTop-padding;
     },
     
-    render: function() {
+    getCategories: function() {
       var headers = [];
-      var emojis = {};
-      var sections = [];
-      var onChange = this.props.onChange;
       var jumpToCategory = this.jumpToCategory;
-      var search = this.props.search;
-      var term = this.state.term;
-      var searchInput;
       
-      // category headers
       _.each(this.props.categories, function(details, key){
-        var shortname = ":"+details.emoji+":";
-        emojis[key] = [];
-      
         headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
-          <Emoji role="menuitem" aria-label={key + " category"} shortname={shortname} onClick={function(){
+          <Emoji role="menuitem" aria-label={key + " category"} shortname={":"+details.emoji+":"} onClick={function(){
             jumpToCategory(key);
           }}/>
         </li>);
       }.bind(this));
-      
-      // filter and categorise emoji
-      for (var key in strategy) {
-        var value = strategy[key];
-
-        // skip unknown categories
-        if (emojis[value.category]) {
-          if (!search || !term || value.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })){
-            emojis[value.category].push(value);
-          }
-        }
-      }
+      return headers;
+    },
+    
+    getEmojis: function() {
+      var sections = [];
+      var onChange = this.props.onChange;
+      var search = this.props.search;
+      var term = this.state.term;
+      var modifier = this.state.modifier;
+      var i = 0;
       
       // render emoji in category sized chunks to help prevent UI lockup
-      var i = 0;
-      _.each(emojis, function(list, key){
-        if (list.length && i < this.state.rendered) {
+      _.each(this.props.categories, function(category, key){
+        var list = this.state.emojis[key];
+        if (list && Object.keys(list).length && i < this.state.rendered) {
           list = _.map(list, function(data){
-            return <li key={data.unicode}><Emoji {...data} aria-label={data.name} role="option" onClick={function(){
-              onChange(data);
-            }}/></li>;
+            var modified = modifier && data[modifier] ? data[modifier] : data[0];
+            
+            if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })) {
+              
+              return <li key={modified.unicode}><Emoji {...modified} aria-label={modified.name} role="option" onClick={function(){
+                onChange(modified);
+              }}/></li>;
+            }
           });
           
-          sections.push(<div className="emoji-category" key={key} ref={key}>
-            <h2 className="emoji-category-header">{this.getCategoryTitle(key)}</h2>
-            <ul className="emoji-category-list">{list}</ul>
-          </div>);
+          if (_.compact(list).length) {
+            sections.push(<div className="emoji-category" key={key} ref={key}>
+              <h2 className="emoji-category-header">{category.title}</h2>
+              <ul className="emoji-category-list">{list}</ul>
+            </div>);
+          }
+          
+          i++;
         }
-        i++;
       }.bind(this));
       
-      // optionally render a search field
+      return sections;
+    },
+    
+    getSearchInput: function() {
       if (this.props.search === true) {
-        searchInput = <div className="emoji-search-wrapper">
+        return <div className="emoji-search-wrapper">
           <input className="emoji-search" type="search" placeholder="Search..." ref="search" onChange={this.updateSearchTerm} />
         </div>;
       }
-      
+    },
+    
+    render: function() {
       return <div className="emoji-dialog" role="dialog">
         <header className="emoji-dialog-header" role="menu">
-          <ul>{headers}</ul>
+          <ul>{this.getCategories()}</ul>
         </header>
         <div className="emoji-grandlist" ref="grandlist" role="listbox">
-          {searchInput}
-          {sections}
+          <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />
+          {this.getSearchInput()}
+          {this.getEmojis()}
         </div>
       </div>
     }
-});
-
-var Emoji = React.createClass({
-  propTypes: {
-    onClick: React.PropTypes.func
-  },
-  
-  shouldComponentUpdate: function(nextProps, nextState) {
-    // avoid rerendering the Emoji component if the shortname hasnt changed
-    return nextProps.shortname != this.props.shortname;
-  },
-  
-  createMarkup: function() {
-    return {__html: emojione.shortnameToImage(this.props.shortname)};
-  },
-  
-  render: function() {
-    return <div {...this.props} onClick={this.props.onClick} tabIndex="0" className="emoji" 
-                title={this.props.name} 
-                dangerouslySetInnerHTML={this.createMarkup()}>
-    </div>
-  }
 });
 
 module.exports = Picker;
