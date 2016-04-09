@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Emojione-picker by tommoor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Emojione-picker</h1>
+      <h2 class="project-tagline">A react emoji picker for use with emojione</h2>
+      <a href="https://github.com/tommoor/emojione-picker" class="btn">View on GitHub</a>
+      <a href="https://github.com/tommoor/emojione-picker/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/tommoor/emojione-picker/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="emoji-picker" class="anchor" href="#emoji-picker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Emoji Picker</h1>
+
+<p>A friendly Emoji picker for Emojione written as a React component. It looks a little something like this, but is easily customized:</p>
+
+<p><img src="https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot.png" alt="Emoji Picker" width="288px"></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p><code>npm install emojione-picker</code></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The npm module includes a pre-transpiled version of the picker so you don't need to run it through your JSX pipeline. Simply require the module like any other.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> EmojiPicker <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>emojione-picker<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">&lt;</span>EmojiPicker onChange<span class="pl-k">=</span>{<span class="pl-k">function</span>(<span class="pl-smi">data</span>){
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Emoji chosen<span class="pl-pds">"</span></span>, data);
+}} <span class="pl-k">/</span><span class="pl-k">&gt;</span></pre></div>
+
+<p>The module also includes CSS at <code>css/picker.css</code> which you can copy and edit or ideally reference directly from within the node_modules directory. Let me know if you're using this in production - i'd love to see it in action!</p>
+
+<h3>
+<a id="filtering" class="anchor" href="#filtering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Filtering</h3>
+
+<p>You can manually pass in a search term as a component prop to filter which emoji's are displayed by default, for example:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">&lt;</span>EmojiPicker search<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>smile<span class="pl-pds">"</span></span> <span class="pl-k">/</span><span class="pl-k">&gt;</span></pre></div>
+
+<p>Or allow the user to search by passing a boolean true, this will enable a search input within the picker:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">&lt;</span>EmojiPicker search<span class="pl-k">=</span>{<span class="pl-c1">true</span>} <span class="pl-k">/</span><span class="pl-k">&gt;</span></pre></div>
+
+<p><img src="https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot-search.png" alt="Emoji Picker with Search" width="288px"></p>
+
+<h3>
+<a id="customization" class="anchor" href="#customization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customization</h3>
+
+<p>You can easily customize the category icons by passing in alternatives to the component constructor. The emoji strings come from the shortname value in strategy.js</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> categories <span class="pl-k">=</span> {
+  people<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>People<span class="pl-pds">'</span></span>,
+    emoji<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>smile<span class="pl-pds">'</span></span>
+  },
+  nature<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Nature<span class="pl-pds">'</span></span>,
+    emoji<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>mouse<span class="pl-pds">'</span></span>
+  },
+  foods<span class="pl-k">:</span> {
+    title<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Food &amp; Drink<span class="pl-pds">'</span></span>,
+    emoji<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>burger<span class="pl-pds">'</span></span>
+  }
+}
+
+<span class="pl-k">&lt;</span>EmojiPicker categories<span class="pl-k">=</span>{categories} <span class="pl-k">/</span><span class="pl-k">&gt;</span></pre></div>
+
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h2>
+
+<pre><code>npm install
+npm run preview
+</code></pre>
+
+<p>Open <code>examples/index.html</code> in a browser to see a preview of the picker.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="http://opensource.org/licenses/MIT">MIT License</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/tommoor/emojione-picker">Emojione-picker</a> is maintained by <a href="https://github.com/tommoor">tommoor</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
