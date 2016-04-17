@@ -131,7 +131,7 @@
   -moz-transition-duration: 200ms;
   -webkit-transition-duration: 200ms;
   transition-duration: 200ms;
-  
+
   -webkit-transform: scale(1.2);
   -moz-transform: scale(1.2);
   transform: scale(1.2);
