@@ -1,6 +1,6 @@
 var React = require("react");
 var Modifier = require("./modifier");
-var _ = require("underscore");
+var forEach = require("lodash/forEach");
 
 var Modifiers = React.createClass({
   propTypes: {
@@ -25,7 +25,7 @@ var Modifiers = React.createClass({
     var list = [];
     var onChange = this.props.onChange;
     
-    _.each(this.props.modifiers, function(hex, index){
+    forEach(this.props.modifiers, function(hex, index){
       list.push(<li key={index}><Modifier hex={hex} active={this.props.active == index} onClick={function(){
         onChange(index);
       }} /></li>);
