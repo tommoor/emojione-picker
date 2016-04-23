@@ -4,9 +4,6 @@ var Modifiers = require("./modifiers");
 var strategy = require("./strategy");
 var emojione = require("emojione");
 var store = require("store");
-var compact = require("lodash/compact");
-var forEach = require("lodash/forEach");
-var map = require("lodash/map");
 var throttle = require("lodash/throttle");
 
 var Picker = React.createClass({
@@ -132,7 +129,7 @@ var Picker = React.createClass({
       var padding = 10;
       var selected = 'people';
 
-      forEach(this.props.categories, function(details, category) {
+      Object.keys(this.props.categories).forEach(function(category) {
         if (this.refs[category] && scrollTop >= this.refs[category].offsetTop-padding) {
           selected = category;
         }
@@ -153,7 +150,8 @@ var Picker = React.createClass({
       var headers = [];
       var jumpToCategory = this.jumpToCategory;
 
-      forEach(this.props.categories, function(details, key){
+      Object.keys(this.props.categories).forEach(function(key){
+        var details = this.props.categories[key];
         headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
           <Emoji role="menuitem" aria-label={key + " category"} shortname={":"+details.emoji+":"} onClick={function(){
             jumpToCategory(key);
@@ -172,10 +170,12 @@ var Picker = React.createClass({
       var i = 0;
 
       // render emoji in category sized chunks to help prevent UI lockup
-      forEach(this.props.categories, function(category, key) {
+      Object.keys(this.props.categories).forEach(function(key) {
+        var category = this.props.categories[key];
         var list = this.state.emojis[key];
         if (list && Object.keys(list).length && i < this.state.rendered) {
-          list = map(list, function(data){
+          list = Object.keys(list).map(function(key){
+            var data = list[key];
             var modified = modifier && data[modifier] ? data[modifier] : data[0];
 
             if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })) {
@@ -186,7 +186,12 @@ var Picker = React.createClass({
             }
           });
 
-          if (compact(list).length) {
+          list = list.reduce(function(result, data){
+            if (data) { result.push(data); }
+            return result;
+          }, []);
+
+          if (list.length) {
             sections.push(<div className="emoji-category" key={key} ref={key}>
               <h2 className="emoji-category-header">{category.title}</h2>
               <ul className="emoji-category-list">{list}</ul>
