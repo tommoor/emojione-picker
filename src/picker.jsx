@@ -133,7 +133,7 @@ var Picker = React.createClass({
         if (this.refs[category] && scrollTop >= this.refs[category].offsetTop-padding) {
           selected = category;
         }
-      }.bind(this));
+      }, this);
 
       if (this.state.category != selected) {
         this.setState({category: selected});
@@ -157,7 +157,7 @@ var Picker = React.createClass({
             jumpToCategory(key);
           }}/>
         </li>);
-      }.bind(this));
+      }, this);
       return headers;
     },
 
@@ -200,7 +200,7 @@ var Picker = React.createClass({
 
           i++;
         }
-      }.bind(this));
+      }, this);
 
       return sections;
     },

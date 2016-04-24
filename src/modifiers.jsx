@@ -29,7 +29,7 @@ var Modifiers = React.createClass({
       list.push(<li key={index}><Modifier hex={hex} active={this.props.active == index} onClick={function(){
         onChange(index);
       }} /></li>);
-    }.bind(this));
+    }, this);
     
     return <ol className="modifiers">{list}</ol>;
   }
