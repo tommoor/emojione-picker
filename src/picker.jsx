@@ -10,7 +10,7 @@ var Picker = React.createClass({
     propTypes: {
       search: React.PropTypes.oneOfType([
         React.PropTypes.string,
-        React.PropTypes.boolean
+        React.PropTypes.bool
       ]),
       onChange: React.PropTypes.func.isRequired,
       showAttribution: React.PropTypes.bool,
