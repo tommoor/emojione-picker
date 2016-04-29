@@ -8,8 +8,12 @@ var _ = require("underscore");
 
 var Picker = React.createClass({
     propTypes: {
-      search: React.PropTypes.string,
-      onChange: React.PropTypes.func.isRequired
+      search: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.bool
+      ]),
+      onChange: React.PropTypes.func.isRequired,
+      showAttribution: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -224,6 +228,12 @@ var Picker = React.createClass({
           {this.getModifiers()}
           {this.getSearchInput()}
           {this.getEmojis()}
+          {this.props.showAttribution &&
+            <div className="emojione-attribution">
+              <span>Emoji art supplied by </span>
+              <a href="http://emojione.com" target="_blank">Emoji One</a>
+            </div>
+          }
         </div>
       </div>
     }
