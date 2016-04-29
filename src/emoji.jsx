@@ -3,7 +3,8 @@ var emojione = require("emojione");
 
 var Emoji = React.createClass({
   propTypes: {
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    useNative: React.PropTypes.bool,
   },
   
   shouldComponentUpdate: function(nextProps, nextState) {
@@ -12,7 +13,11 @@ var Emoji = React.createClass({
   },
   
   createMarkup: function() {
-    return {__html: emojione.shortnameToImage(this.props.shortname)};
+    return {__html:
+      this.props.useNative
+        ? emojione.shortnameToUnicode(this.props.shortname)
+        : emojione.shortnameToImage(this.props.shortname)
+    };
   },
   
   render: function() {

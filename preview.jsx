@@ -9,3 +9,5 @@ var logChoice = function(emoji) {
 ReactDOM.render(<EmojiPicker onChange={logChoice}/>, document.getElementById('example1'));
 
 ReactDOM.render(<EmojiPicker search={true} onChange={logChoice}/>, document.getElementById('example2'));
+
+ReactDOM.render(<EmojiPicker onChange={logChoice} useNative={true}/>, document.getElementById('example3'));
