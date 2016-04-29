@@ -157,3 +157,7 @@
   width: 22px;
   height: 22px;
 }
+
+.emoji-dialog .emoji {
+  font-size: 24px;
+}
