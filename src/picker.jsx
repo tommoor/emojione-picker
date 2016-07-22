@@ -154,6 +154,10 @@ var Picker = React.createClass({
         headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
           <Emoji role="menuitem" aria-label={key + " category"} shortname={":"+details.emoji+":"} onClick={function(){
             jumpToCategory(key);
+          }} onKeyUp={function(e) {
+            e.preventDefault()
+            if (e.which === 13 || e.which === 32)
+              jumpToCategory(key);
           }}/>
         </li>);
       }.bind(this));
@@ -177,8 +181,12 @@ var Picker = React.createClass({
 
             if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })) {
 
-              return <li key={modified.unicode}><Emoji {...modified} aria-label={modified.name} role="option" onClick={function(){
+              return <li key={modified.unicode}><Emoji {...modified} aria-label={modified.name} role="option" onClick={function() {
                 onChange(modified);
+              }} onKeyUp={function(e) {
+                e.preventDefault()
+                if (e.which === 13 || e.which === 32)
+                  onChange(modified);
               }}/></li>;
             }
           });
