@@ -127,7 +127,13 @@ var Picker = React.createClass({
     updateActiveCategory:  _.throttle(function() {
       var scrollTop = this.refs.grandlist.scrollTop;
       var padding = 10;
-      var selected = 'people';
+      var selected;
+      if (this.state.category){
+        selected = this.state.category;
+      }
+      else {
+        selected = 'people';
+      }
 
       _.each(this.props.categories, function(details, category) {
         if (this.refs[category] && scrollTop >= this.refs[category].offsetTop-padding) {
@@ -152,7 +158,7 @@ var Picker = React.createClass({
 
       _.each(this.props.categories, function(details, key){
         headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
-          <Emoji role="menuitem" aria-label={key + " category"} shortname={":"+details.emoji+":"} onClick={function(){
+          <Emoji id={key} role="menuitem" aria-label={key + " category"} shortname={":"+details.emoji+":"} onClick={function(){
             jumpToCategory(key);
           }} onKeyUp={function(e) {
             e.preventDefault()
@@ -193,7 +199,7 @@ var Picker = React.createClass({
 
           if (_.compact(list).length) {
             sections.push(<div className="emoji-category" key={key} ref={key}>
-              <h2 className="emoji-category-header">{category.title}</h2>
+              <h2 refs={category.title} tabIndex="0" className="emoji-category-header">{category.title}</h2>
               <ul className="emoji-category-list">{list}</ul>
             </div>);
           }
@@ -219,6 +225,11 @@ var Picker = React.createClass({
         </div>;
       }
     },
+    setFocus: function(e) {
+      if (e.target.id === "flags") {
+        this.refs[this.state.category].children[0].focus()
+      }
+    },
 
     render: function() {
       var classes = 'emoji-dialog';
@@ -226,7 +237,7 @@ var Picker = React.createClass({
 
       return <div className={classes} role="dialog">
         <header className="emoji-dialog-header" role="menu">
-          <ul>{this.getCategories()}</ul>
+          <ul onBlur={this.setFocus}>{this.getCategories()}</ul>
         </header>
         <div className="emoji-grandlist" ref="grandlist" role="listbox">
           {this.getModifiers()}
