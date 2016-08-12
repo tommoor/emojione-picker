@@ -1,6 +1,5 @@
 var React = require("react");
 var Modifier = require("./modifier");
-var _ = require("underscore");
 
 var Modifiers = React.createClass({
   propTypes: {
@@ -25,11 +24,12 @@ var Modifiers = React.createClass({
     var list = [];
     var onChange = this.props.onChange;
     
-    _.each(this.props.modifiers, function(hex, index){
+    Object.keys(this.props.modifiers).forEach(function(index){
+      var hex = this.props.modifiers[index];
       list.push(<li key={index}><Modifier hex={hex} active={this.props.active == index} onClick={function(){
         onChange(index);
       }} /></li>);
-    }.bind(this));
+    }, this);
     
     return <ol className="modifiers">{list}</ol>;
   }
