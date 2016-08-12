@@ -8,7 +8,10 @@ var _ = require("underscore");
 
 var Picker = React.createClass({
     propTypes: {
-      search: React.PropTypes.string,
+      search: React.PropTypes.oneOfType([
+        React.PropTypes.bool,
+        React.PropTypes.string,
+      ]),
       onChange: React.PropTypes.func.isRequired
     },
 
