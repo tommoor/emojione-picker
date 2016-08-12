@@ -190,7 +190,7 @@ var Picker = React.createClass({
 
             if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })) {
 
-              return <li key={modified.unicode}><Emoji {...modified} aria-label={modified.name} role="option" onClick={function() {
+              return <li key={modified.unicode}><Emoji {...modified} ariaLabel={modified.name} role="option" onClick={function() {
                 onChange(modified);
               }} onKeyUp={function(e) {
                 e.preventDefault()
@@ -203,7 +203,7 @@ var Picker = React.createClass({
 
           if (_.compact(list).length) {
             sections.push(<div className="emoji-category" key={key} ref={key}>
-              <h2 refs={category.title} tabIndex="0" className="emoji-category-header">{category.title}</h2>
+              <h2 ref={category.title} tabIndex="0" className="emoji-category-header">{category.title}</h2>
               <ul className="emoji-category-list">{list}</ul>
             </div>);
           }
