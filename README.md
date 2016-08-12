@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/emojione-picker.svg)](https://badge.fury.io/js/emojione-picker)
+
 # Emoji Picker
 
 A friendly Emoji picker for Emojione written as a React component. It looks a little something like this, but is easily customized:
