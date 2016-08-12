@@ -78,3 +78,5 @@ npm run build
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT)
+
+Emojione is used under the [Creative Commons License (CC-BY 4.0)](http://emojione.com/licensing/) - If you use this component you should also include attribute to Emojione someone within your website or application to satisfy the terms of the license.
