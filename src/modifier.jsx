@@ -2,6 +2,7 @@ var React = require("react");
 
 var Modifier = React.createClass({
   propTypes: {
+    onKeyUp: React.PropTypes.func,
     onClick: React.PropTypes.func,
     active: React.PropTypes.bool,
     hex: React.PropTypes.string
@@ -10,6 +11,7 @@ var Modifier = React.createClass({
   render: function() {
     return (
       <a
+        onKeyUp={this.props.onKeyUp}
         onClick={this.props.onClick}
         className={this.props.active ? "modifier active" : "modifier"}
         style={{background: this.props.hex}}

@@ -3,6 +3,7 @@ var emojione = require("emojione");
 
 var Emoji = React.createClass({
   propTypes: {
+    onKeyUp: React.PropTypes.func,
     onClick: React.PropTypes.func,
     ariaLabel: React.PropTypes.string,
     name: React.PropTypes.string,
@@ -12,7 +13,7 @@ var Emoji = React.createClass({
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
-    // avoid rerendering the Emoji component if the shortname hasnt changed
+    // avoid rerendering the Emoji component if the shortname hasn't changed
     return nextProps.shortname != this.props.shortname;
   },
 
@@ -23,6 +24,7 @@ var Emoji = React.createClass({
   render: function() {
     return (
       <div
+        onKeyUp={this.props.onKeyUp}
         onClick={this.props.onClick}
         tabIndex="0"
         className="emoji"
