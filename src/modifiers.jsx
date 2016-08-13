@@ -1,8 +1,8 @@
-var React = require("react");
-var Modifier = require("./modifier");
-var _ = require("underscore");
+import React from 'react';
+import Modifier from './modifier';
+import {each} from 'lodash';
 
-var Modifiers = React.createClass({
+const Modifiers = React.createClass({
   propTypes: {
     onChange: React.PropTypes.func
   },
@@ -20,17 +20,17 @@ var Modifiers = React.createClass({
       }
     }
   },
-  
+
   render: function() {
-    var list = [];
-    var onChange = this.props.onChange;
-    
-    _.each(this.props.modifiers, function(hex, index){
+    const list = [];
+    const onChange = this.props.onChange;
+
+    each(this.props.modifiers, (hex, index) => {
       list.push(<li key={index}><Modifier hex={hex} active={this.props.active == index} onClick={function(){
         onChange(index);
       }} /></li>);
-    }.bind(this));
-    
+    });
+
     return <ol className="modifiers">{list}</ol>;
   }
 });

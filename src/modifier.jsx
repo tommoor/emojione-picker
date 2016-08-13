@@ -1,6 +1,6 @@
-var React = require("react");
+import React from 'react';
 
-var Modifier = React.createClass({
+const Modifier = React.createClass({
   propTypes: {
     onKeyUp: React.PropTypes.func,
     onClick: React.PropTypes.func,

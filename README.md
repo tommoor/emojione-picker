@@ -55,7 +55,7 @@ var categories = {
     title: 'Nature',
     emoji: 'mouse'
   },
-  foods: {
+  food: {
     title: 'Food & Drink',
     emoji: 'burger'
   }
@@ -68,14 +68,10 @@ var categories = {
 
 ```
 npm install
-npm run preview
+npm run watch
 ```
 
-Open `examples/index.html` in a browser to see a preview of the picker. To create a release:
-
-```
-npm run build
-```
+Open `examples/index.html` in a browser to see a preview of the picker
 
 ## License
 

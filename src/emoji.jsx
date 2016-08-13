@@ -1,7 +1,7 @@
-var React = require("react");
-var emojione = require("emojione");
+import React from 'react';
+import emojione from 'emojione';
 
-var Emoji = React.createClass({
+const Emoji = React.createClass({
   propTypes: {
     onKeyUp: React.PropTypes.func,
     onClick: React.PropTypes.func,
@@ -14,7 +14,7 @@ var Emoji = React.createClass({
 
   shouldComponentUpdate: function(nextProps, nextState) {
     // avoid rerendering the Emoji component if the shortname hasn't changed
-    return nextProps.shortname != this.props.shortname;
+    return nextProps.shortname !== this.props.shortname;
   },
 
   createMarkup: function() {

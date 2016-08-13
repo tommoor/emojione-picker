@@ -1,6 +1,6 @@
 {
   "name": "emojione-picker",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Tom Moor",
   "description": "An emoji picker in React",
   "main": "lib/picker.js",
@@ -8,7 +8,8 @@
     "build": "babel src -d lib",
     "preview": "./node_modules/.bin/browserify --extension=.jsx -d -t [ babelify ] preview.jsx -o lib/preview.js",
     "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ babelify ] src/*.jsx preview.jsx -o lib/preview.js",
-    "example": "open http://localhost:8080/examples && http-server"
+    "example": "open http://localhost:8080/examples && http-server",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,8 @@
   ],
   "dependencies": {
     "emojione": "^2.1.4",
-    "store": "^1.3.20",
-    "underscore": "^1.8.3"
+    "lodash": "^4.15.0",
+    "store": "^1.3.20"
   },
   "peerDependencies": {
     "react": ">=0.14.0"
