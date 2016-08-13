@@ -85,11 +85,11 @@ const Picker = React.createClass({
 
     componentDidUpdate: function(prevProps, prevState) {
       if (this.state.rendered < Object.keys(this.props.categories).length) {
-        setTimeout(function(){
+        setTimeout(() => {
           if (this.isMounted()) {
-            this.setState({rendered: this.state.rendered+1});
+            this.setState({rendered: this.state.rendered + 1});
           }
-        }.bind(this), 0);
+        }, 0);
       }
     },
 
@@ -148,25 +148,32 @@ const Picker = React.createClass({
     }, 100),
 
     jumpToCategory: function(name) {
-      var offsetTop = this.refs[name].offsetTop;
-      var padding = 5;
+      const offsetTop = this.refs[name].offsetTop;
+      const padding = 5;
       this.refs.grandlist.scrollTop = offsetTop-padding;
     },
 
     getCategories: function() {
-      var headers = [];
-      var jumpToCategory = this.jumpToCategory;
+      const headers = [];
+      const jumpToCategory = this.jumpToCategory;
 
       each(this.props.categories, (details, key) => {
-        headers.push(<li key={key} className={this.state.category == key ? "active" : ""}>
-          <Emoji id={key} role="menuitem" aria-label={key + " category"} shortname={":"+details.emoji+":"} onClick={function(){
-            jumpToCategory(key);
-          }} onKeyUp={function(e) {
-            e.preventDefault()
-            if (e.which === 13 || e.which === 32) {
+        headers.push(<li key={key} className={this.state.category === key ? "active" : ""}>
+          <Emoji
+            id={key}
+            role="menuitem"
+            aria-label={`${key} category`}
+            shortname={`:${details.emoji}:`}
+            onClick={function(e){
               jumpToCategory(key);
-            }
-          }}/>
+            }}
+            onKeyUp={function(e) {
+              e.preventDefault();
+              if (e.which === 13 || e.which === 32) {
+                jumpToCategory(key);
+              }
+            }}
+          />
         </li>);
       });
 
@@ -174,30 +181,38 @@ const Picker = React.createClass({
     },
 
     getEmojis: function() {
-      var sections = [];
-      var onChange = this.props.onChange;
-      var search = this.props.search;
-      var term = this.state.term;
-      var modifier = this.state.modifier;
-      var i = 0;
+      const sections = [];
+      const {onChange, search} = this.props;
+      const {term, modifier} = this.state;
+      let i = 0;
 
       // render emoji in category sized chunks to help prevent UI lockup
       each(this.props.categories, (category, key) => {
-        var list = this.state.emojis[key];
+        let list = this.state.emojis[key];
         if (list && Object.keys(list).length && i < this.state.rendered) {
           list = map(list, function(data){
-            var modified = modifier && data[modifier] ? data[modifier] : data[0];
+            const modified = modifier && data[modifier] ? data[modifier] : data[0];
 
-            if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp("^"+term).test(keyword); })) {
+            if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp(`^${term}`).test(keyword); })) {
 
-              return <li key={modified.unicode}><Emoji {...modified} ariaLabel={modified.name} role="option" onClick={function() {
-                onChange(modified);
-              }} onKeyUp={function(e) {
-                e.preventDefault()
-                if (e.which === 13 || e.which === 32) {
-                  onChange(modified);
-                }
-              }}/></li>;
+              return (
+                <li key={modified.unicode}>
+                  <Emoji
+                    {...modified}
+                    ariaLabel={modified.name}
+                    role="option"
+                    onClick={function(e) {
+                      onChange(modified);
+                    }}
+                    onKeyUp={function(e) {
+                      e.preventDefault();
+                      if (e.which === 13 || e.which === 32) {
+                        onChange(modified);
+                      }
+                    }}
+                  />
+                </li>
+              );
             }
           });
 
@@ -218,7 +233,7 @@ const Picker = React.createClass({
     getModifiers: function() {
       // we hide the color tone modifiers when searching to reduce clutter
       if (!this.state.term) {
-        return <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />
+        return <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />;
       }
     },
 
@@ -231,12 +246,12 @@ const Picker = React.createClass({
     },
     setFocus: function(e) {
       if (e.target.id === "flags") {
-        this.refs[this.state.category].children[0].focus()
+        this.refs[this.state.category].children[0].focus();
       }
     },
 
     render: function() {
-      var classes = 'emoji-dialog';
+      let classes = 'emoji-dialog';
       if (this.props.search === true) classes += ' with-search';
 
       return <div className={classes} role="dialog">
