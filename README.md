@@ -69,7 +69,7 @@ var categories = {
 You can make the picker use a spritesheet, however this requires a little extra work. Emojione settings can
 be passed into the Picker component as below. [Follow these instructions](https://github.com/Ranks/emojione#extras) to load the correct spritesheets into your page.
 
-```
+```javascript
 var settings = {
   imageType: 'png',
   sprites: true
