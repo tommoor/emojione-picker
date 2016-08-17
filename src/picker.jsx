@@ -1,7 +1,7 @@
 import React from 'react';
 import Emoji from './emoji';
 import Modifiers from './modifiers';
-import strategy from '../node_modules/emojione/emoji.json';
+import strategy from 'emojione/emoji.json';
 import emojione from 'emojione';
 import store from 'store';
 import {throttle, each, map, compact} from 'lodash';
