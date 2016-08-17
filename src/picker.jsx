@@ -109,8 +109,9 @@ const Picker = React.createClass({
       const emojis = {};
 
       // categorise and nest emoji
-      // TODO: this could be done as a preprocess.
-      for (const key in strategy) {
+      // sort ensures that modifiers appear unmodified keys
+      const keys = Object.keys(strategy);
+      for (const key of keys) {
         const value = strategy[key];
 
         // skip unknown categories
@@ -118,9 +119,14 @@ const Picker = React.createClass({
           if (!emojis[value.category]) emojis[value.category] = {};
           const match = key.match(/(.*?)_tone(.*?)$/);
 
-          // this does rely on the modifer emojis coming later in strategy
           if (match) {
-            emojis[value.category][match[1]][match[2]] = value;
+            // this check is to stop the plugin from failing in the case that the
+            // emoji strategy miscategorizes tones - which was the case here:
+            // https://github.com/Ranks/emojione/pull/330
+            const unmodifiedEmojiExists = !!emojis[value.category][match[1]];
+            if (unmodifiedEmojiExists) {
+              emojis[value.category][match[1]][match[2]] = value;
+            }
           } else {
             emojis[value.category][key] = [value];
           }
