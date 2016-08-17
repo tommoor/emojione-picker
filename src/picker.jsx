@@ -1,10 +1,13 @@
 import React from 'react';
 import Emoji from './emoji';
 import Modifiers from './modifiers';
-import strategy from '../node_modules/emojione/emoji.json';
+import strategy from 'emojione/emoji.json';
 import emojione from 'emojione';
 import store from 'store';
-import {throttle, each, map, compact} from 'lodash';
+import throttle from 'lodash/throttle';
+import each from 'lodash/each';
+import map from 'lodash/map';
+import compact from 'lodash/compact';
 
 const Picker = React.createClass({
     propTypes: {

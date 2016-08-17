@@ -1,6 +1,6 @@
 import React from 'react';
 import Modifier from './modifier';
-import {each} from 'lodash';
+import each from 'lodash/each';
 
 const Modifiers = React.createClass({
   propTypes: {
