@@ -11,6 +11,11 @@ import compact from 'lodash/compact';
 
 const Picker = React.createClass({
     propTypes: {
+      emojione: React.PropTypes.shape({
+        imageType: React.PropTypes.string,
+        sprites: React.PropTypes.bool,
+        imagePathSVGSprites: React.PropTypes.string
+      }),
       search: React.PropTypes.oneOfType([
         React.PropTypes.bool,
         React.PropTypes.string,
@@ -68,6 +73,9 @@ const Picker = React.createClass({
     },
 
     componentWillMount: function() {
+      each(this.props.emojione, (value, key) => {
+        emojione[key] = value;
+      });
       this.setState({emojis: this.emojisFromStrategy(strategy)});
     },
 
@@ -162,7 +170,7 @@ const Picker = React.createClass({
       this.refs.grandlist.scrollTop = offsetTop-padding;
     },
 
-    getCategories: function() {
+    renderCategories: function() {
       const headers = [];
       const jumpToCategory = this.jumpToCategory;
 
@@ -189,7 +197,7 @@ const Picker = React.createClass({
       return headers;
     },
 
-    getEmojis: function() {
+    renderEmojis: function() {
       const sections = [];
       const {onChange, search} = this.props;
       const {term, modifier} = this.state;
@@ -239,20 +247,28 @@ const Picker = React.createClass({
       return sections;
     },
 
-    getModifiers: function() {
+    renderModifiers: function() {
       // we hide the color tone modifiers when searching to reduce clutter
       if (!this.state.term) {
         return <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />;
       }
     },
 
-    getSearchInput: function() {
+    renderSearchInput: function() {
       if (this.props.search === true) {
         return <div className="emoji-search-wrapper">
-          <input className="emoji-search" type="search" placeholder="Search..." ref="search" onChange={this.updateSearchTerm} />
+          <input
+            className="emoji-search"
+            type="search"
+            placeholder="Search..."
+            ref="search"
+            onChange={this.updateSearchTerm}
+            autoFocus
+          />
         </div>;
       }
     },
+
     setFocus: function(e) {
       if (e.target.id === "flags") {
         this.refs[this.state.category].children[0].focus();
@@ -265,12 +281,12 @@ const Picker = React.createClass({
 
       return <div className={classes} role="dialog">
         <header className="emoji-dialog-header" role="menu">
-          <ul onBlur={this.setFocus}>{this.getCategories()}</ul>
+          <ul onBlur={this.setFocus}>{this.renderCategories()}</ul>
         </header>
         <div className="emoji-grandlist" ref="grandlist" role="listbox">
-          {this.getModifiers()}
-          {this.getSearchInput()}
-          {this.getEmojis()}
+          {this.renderModifiers()}
+          {this.renderSearchInput()}
+          {this.renderEmojis()}
         </div>
       </div>
     }

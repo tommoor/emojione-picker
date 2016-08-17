@@ -41,7 +41,7 @@ Or allow the user to search by passing a boolean true, this will enable a search
 
 <img src="https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot-search.png" alt="Emoji Picker with Search" style="max-width:100%;" width="288px">
 
-### Customization
+### Customize Categories
 
 You can easily customize the category icons by passing in alternatives to the component constructor. The emoji strings come from the shortname value in strategy.js
 
@@ -62,6 +62,19 @@ var categories = {
 }
 
 <EmojiPicker categories={categories} />
+```
+
+### Spritesheets
+
+You can make the picker use a spritesheet, however this requires a little extra work. Emojione settings can
+be passed into the Picker component as below. [Follow these instructions](https://github.com/Ranks/emojione#extras) to load the correct spritesheets into your page.
+
+```
+var settings = {
+  imageType: 'png',
+  sprites: true
+};
+<EmojiPicker categories={categories} emojione={settings} />
 ```
 
 ## Development
