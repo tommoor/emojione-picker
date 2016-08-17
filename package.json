@@ -27,7 +27,7 @@
     "dialog"
   ],
   "dependencies": {
-    "emojione": "^2.1.4",
+    "emojione": "^2.2.6",
     "lodash": "^4.15.0",
     "store": "^1.3.20"
   },
