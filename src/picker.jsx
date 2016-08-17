@@ -110,7 +110,8 @@ const Picker = React.createClass({
 
       // categorise and nest emoji
       // TODO: this could be done as a preprocess.
-      for (const key in strategy) {
+      const keys = Object.keys(strategy).sort()
+      for (const key of keys) {
         const value = strategy[key];
 
         // skip unknown categories
