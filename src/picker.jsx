@@ -20,7 +20,20 @@ const Picker = React.createClass({
         React.PropTypes.bool,
         React.PropTypes.string,
       ]),
-      onChange: React.PropTypes.func.isRequired
+      onChange: React.PropTypes.func.isRequired,
+      strategy: React.PropTypes.objectOf(
+        React.PropTypes.shape({
+          unicode: React.PropTypes.string,
+          unicode_alternates: React.PropTypes.string,
+          name: React.PropTypes.string,
+          shortname: React.PropTypes.string,
+          category: React.PropTypes.string,
+          emoji_order: React.PropTypes.string,
+          aliases: React.PropTypes.array,
+          aliases_ascii: React.PropTypes.array,
+          keywords: React.PropTypes.array
+        })
+      )
     },
 
     getDefaultProps: function() {
@@ -59,7 +72,8 @@ const Picker = React.createClass({
             title: 'Flags',
             emoji: 'flag_gb'
           }
-        }
+        },
+        strategy: strategy
       }
     },
 
@@ -76,7 +90,7 @@ const Picker = React.createClass({
       each(this.props.emojione, (value, key) => {
         emojione[key] = value;
       });
-      this.setState({emojis: this.emojisFromStrategy(strategy)});
+      this.setState({emojis: this.emojisFromStrategy(this.props.strategy)});
     },
 
     componentDidMount: function() {
