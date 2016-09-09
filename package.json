@@ -1,13 +1,15 @@
 {
   "name": "emojione-picker",
-  "version": "0.3.6",
+  "version": "1.1.0",
   "author": "Tom Moor",
   "description": "An emoji picker in React",
   "main": "lib/picker.js",
   "scripts": {
     "build": "babel src -d lib",
     "preview": "./node_modules/.bin/browserify --extension=.jsx -d -t [ babelify ] preview.jsx -o lib/preview.js",
-    "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ babelify ] src/*.jsx preview.jsx -o lib/preview.js"
+    "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ babelify ] src/*.jsx preview.jsx -o lib/preview.js",
+    "example": "open http://localhost:8080/examples && http-server",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,25 +21,29 @@
   "license": "MIT",
   "keywords": [
     "react-component",
+    "emojione",
     "emoji",
     "picker",
     "dialog"
   ],
   "dependencies": {
-    "emojione": "^2.1.4",
-    "store": "^1.3.20",
-    "underscore": "^1.8.3"
+    "emojione": "^2.2.6",
+    "lodash": "^4.15.0",
+    "store": "^1.3.20"
   },
   "peerDependencies": {
     "react": ">=0.14.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
+    "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "react": "~0.14.0",
-    "react-dom": "~0.14.0",
+    "http-server": "^0.9.0",
+    "react": "~15.2.0",
+    "react-dom": "~15.2.0",
     "watchify": "^3.7.0"
   }
 }

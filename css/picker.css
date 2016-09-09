@@ -158,6 +158,20 @@
   height: 22px;
 }
 
+<<<<<<< HEAD
 .emoji-dialog .emoji {
   font-size: 24px;
+=======
+.emoji-dialog .emojione-attribution {
+  font-size: 12px;
+  font-family: sans-serif;
+  font-weight: normal;
+  color: #444;
+  padding: 0 4px;
+}
+
+.emoji-dialog .emojione-attribution a {
+  text-decoration: none;
+  color: #08a0d8;
+>>>>>>> master
 }
