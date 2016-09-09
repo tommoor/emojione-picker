@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/emojione-picker.svg)](https://badge.fury.io/js/emojione-picker)
+
 # Emoji Picker
 
 A friendly Emoji picker for Emojione written as a React component. It looks a little something like this, but is easily customized:
@@ -39,7 +41,7 @@ Or allow the user to search by passing a boolean true, this will enable a search
 
 <img src="https://raw.githubusercontent.com/tommoor/emojione-picker/master/examples/screenshot-search.png" alt="Emoji Picker with Search" style="max-width:100%;" width="288px">
 
-### Customization
+### Customize Categories
 
 You can easily customize the category icons by passing in alternatives to the component constructor. The emoji strings come from the shortname value in strategy.js
 
@@ -53,7 +55,7 @@ var categories = {
     title: 'Nature',
     emoji: 'mouse'
   },
-  foods: {
+  food: {
     title: 'Food & Drink',
     emoji: 'burger'
   }
@@ -62,19 +64,30 @@ var categories = {
 <EmojiPicker categories={categories} />
 ```
 
+### Spritesheets
+
+You can make the picker use a spritesheet, however this requires a little extra work. Emojione settings can
+be passed into the Picker component as below. [Follow these instructions](https://github.com/Ranks/emojione#extras) to load the correct spritesheets into your page.
+
+```javascript
+var settings = {
+  imageType: 'png',
+  sprites: true
+};
+<EmojiPicker categories={categories} emojione={settings} />
+```
+
 ## Development
 
 ```
 npm install
-npm run preview
+npm run watch
 ```
 
-Open `examples/index.html` in a browser to see a preview of the picker. To create a release:
-
-```
-npm run build
-```
+Open `examples/index.html` in a browser to see a preview of the picker
 
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT)
+
+Emojione is used under the [Creative Commons License (CC-BY 4.0)](http://emojione.com/licensing/) - If you use this component you should also include attribute to Emojione someone within your website or application to satisfy the terms of the license.

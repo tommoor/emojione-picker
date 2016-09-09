@@ -1,12 +1,22 @@
-var React = require("react");
+import React from 'react';
 
-var Modifier = React.createClass({
+const Modifier = React.createClass({
   propTypes: {
-    onClick: React.PropTypes.func
+    onKeyUp: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    active: React.PropTypes.bool,
+    hex: React.PropTypes.string
   },
-  
+
   render: function() {
-    return <a {...this.props} onClick={this.props.onClick} className={this.props.active ? "modifier active" : "modifier"} style={{background: this.props.hex}}></a>;
+    return (
+      <a
+        onKeyUp={this.props.onKeyUp}
+        onClick={this.props.onClick}
+        className={this.props.active ? "modifier active" : "modifier"}
+        style={{background: this.props.hex}}
+      />
+    );
   }
 });
 

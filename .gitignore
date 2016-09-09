@@ -1,4 +1,4 @@
 node_modules
 build
-lib/preview.js
+lib
 .DS_Store
