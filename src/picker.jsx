@@ -20,7 +20,8 @@ const Picker = React.createClass({
         React.PropTypes.bool,
         React.PropTypes.string,
       ]),
-      onChange: React.PropTypes.func.isRequired
+      onChange: React.PropTypes.func.isRequired,
+      excludeEmojis: React.PropTypes.array,
     },
 
     getDefaultProps: function() {
@@ -59,7 +60,8 @@ const Picker = React.createClass({
             title: 'Flags',
             emoji: 'flag_gb'
           }
-        }
+        },
+        excludeEmojis: []
       }
     },
 
@@ -199,7 +201,7 @@ const Picker = React.createClass({
 
     renderEmojis: function() {
       const sections = [];
-      const {onChange, search} = this.props;
+      const {onChange, search, excludeEmojis} = this.props;
       const {term, modifier} = this.state;
       let i = 0;
 
@@ -211,25 +213,26 @@ const Picker = React.createClass({
             const modified = modifier && data[modifier] ? data[modifier] : data[0];
 
             if (!search || !term || modified.keywords.some(function(keyword) { return new RegExp(`^${term}`).test(keyword); })) {
-
-              return (
-                <li key={modified.unicode}>
-                  <Emoji
-                    {...modified}
-                    ariaLabel={modified.name}
-                    role="option"
-                    onClick={function(e) {
-                      onChange(modified);
-                    }}
-                    onKeyUp={function(e) {
-                      e.preventDefault();
-                      if (e.which === 13 || e.which === 32) {
+              if( excludeEmojis.indexOf(modified.shortname) === -1) {
+                return (
+                  <li key={modified.unicode}>
+                    <Emoji
+                      {...modified}
+                      ariaLabel={modified.name}
+                      role="option"
+                      onClick={function(e) {
                         onChange(modified);
-                      }
-                    }}
-                  />
-                </li>
-              );
+                      }}
+                      onKeyUp={function(e) {
+                        e.preventDefault();
+                        if (e.which === 13 || e.which === 32) {
+                          onChange(modified);
+                        }
+                      }}
+                    />
+                  </li>
+                );
+              }
             }
           });
 

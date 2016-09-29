@@ -77,6 +77,14 @@ var settings = {
 <EmojiPicker categories={categories} emojione={settings} />
 ```
 
+### Exclude emojis
+
+You can manually pass a exclude emojis array as a component prop to exclude emojis, then excluded emojis are displayed, for example:
+
+```javascript
+<EmojiPicker excludeEmojis={excludeEmojis} />
+```
+
 ## Development
 
 ```
