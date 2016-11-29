@@ -1,6 +1,5 @@
 import React from 'react';
 import Emoji from './emoji';
-import Modifiers from './modifiers';
 import strategy from 'emojione/emoji.json';
 import emojione from 'emojione';
 import store from 'store';
@@ -66,7 +65,7 @@ const Picker = React.createClass({
 
     getInitialState: function() {
       return {
-        modifier: store.get('emoji-modifier') || 0,
+        modifier: 0,
         rendered: 0,
         category: false,
         term: this.props.search !== true ? this.props.search : ""
@@ -251,10 +250,7 @@ const Picker = React.createClass({
     },
 
     renderModifiers: function() {
-      // we hide the color tone modifiers when searching to reduce clutter
-      if (!this.state.term) {
-        return <Modifiers active={this.state.modifier} onChange={this.updateActiveModifier} />;
-      }
+      return null;
     },
 
     renderSearchInput: function() {
