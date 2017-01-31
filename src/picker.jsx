@@ -8,6 +8,7 @@ import throttle from 'lodash/throttle';
 import each from 'lodash/each';
 import map from 'lodash/map';
 import compact from 'lodash/compact';
+import shallowCompare from 'react-addons-shallow-compare';
 
 const Picker = React.createClass({
     propTypes: {
@@ -102,6 +103,10 @@ const Picker = React.createClass({
           }
         }, 0);
       }
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+      return shallowCompare(this, nextProps, nextState);
     },
 
     updateSearchTerm: function() {
