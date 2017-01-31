@@ -1,5 +1,5 @@
 .emoji-dialog {
-  width: 276px;
+  width: 281px;
   height: 220px;
   background: #fff;
   box-sizing: border-box;
@@ -10,12 +10,6 @@
 }
 
 .emoji-dialog .emoji-dialog-header {
-  box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 42px;
   padding: 0 10px;
   background-color: #F5F7F9;
 }
@@ -50,61 +44,17 @@
   filter: grayscale(0);
 }
 
-.emoji-dialog .emoji-grandlist {
-  position: absolute;
-  top: 42px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 10px;
-  box-sizing: border-box;
-  width: 100%;
-  height: calc(100% - 42px);
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.emoji-dialog .emoji-category-list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.emoji-dialog .emoji-category-list li {
-  display: inline-block;
-  box-sizing: border-box;
-  width: 32px;
-  height: 32px;
-  padding: 4px;
-  border-radius: 4px;
-}
-
-.emoji-dialog .emoji-category-header {
-  margin-top: 10px;
-  margin-bottom: 8px;
-  font-size: 18px;
-  font-family: sans-serif;
-  font-weight: normal;
-  color: #444;
-  padding: 0 4px;
-}
-
-.emoji-dialog .modifiers {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 22px;
-  right: 15px;
-}
-
-.emoji-dialog.with-search .modifiers {
-  top: 52px;
+.emoji-dialog .emoji-search-wrapper {
+  padding: 6px 10px;
 }
 
 .emoji-dialog .modifiers li {
   display: inline-block;
   padding: 0 2px;
+}
+
+.emoji-dialog .modifiers li:last-of-type {
+  padding-right: 0;
 }
 
 .emoji-dialog .modifiers .modifier {
@@ -137,10 +87,6 @@
   transform: scale(1.2);
 }
 
-.emoji-dialog .emoji-search-wrapper {
-  padding: 0 5px;
-}
-
 .emoji-dialog .emoji-search {
   font-size: 12px;
   padding: 6px 4px;
@@ -149,11 +95,24 @@
   border-radius: 4px;
 }
 
+.emoji-dialog .emoji-categories-wrapper {
+  position: absolute;
+  top: 42px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.emoji-dialog .emoji-search-wrapper +
+.emoji-categories-wrapper {
+  top: 83px;
+}
+
 .emoji-dialog .emoji-category-list li:hover {
   background: #F5F7F9;
 }
 
-.emoji-dialog .emoji-category-list .emoji img {
+.emoji-category .emoji img.emojione {
   width: 22px;
   height: 22px;
 }
