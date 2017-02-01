@@ -2,15 +2,6 @@ import React from 'react';
 import Modifier from './modifier';
 import each from 'lodash/each';
 
-const style = {
-  listStyle: 'none',
-  padding: '0 6 0 0',
-  margin: 0,
-  textAlign: 'right',
-  verticalAlign: 'middle',
-  whiteSpace: 'nowrap',
-}
-
 const Modifiers = React.createClass({
   propTypes: {
     onChange: React.PropTypes.func
@@ -40,7 +31,7 @@ const Modifiers = React.createClass({
       }} /></li>);
     });
 
-    return <ol className="modifiers" style={style}>{list}</ol>;
+    return <ol className="modifiers">{list}</ol>;
   }
 });
 
