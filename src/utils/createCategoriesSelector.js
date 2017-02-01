@@ -1,7 +1,7 @@
 import map from 'lodash/map';
 import values from 'lodash/values';
 
-function categorySelector(categories, emojisByCategory, modifier, search, term) {
+function categoriesSelector(categories, emojisByCategory, modifier, search, term) {
   const findEmojiVariant = emojis => modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
   const searchTermRegExp = new RegExp(`^${term}`);
   const keywordMatchesSearchTerm = keyword => searchTermRegExp.test(keyword);
@@ -21,7 +21,7 @@ function categorySelector(categories, emojisByCategory, modifier, search, term) 
   }).filter(({emojis}) => emojis.length > 0);
 }
 
-function createCategorySelector() {
+export default function createCategoriesSelector() {
   let lastCategories;
   let lastEmojisByCategory;
   let lastModifier;
@@ -29,7 +29,7 @@ function createCategorySelector() {
   let lastTerm;
   let lastResult;
 
-  return function memoizedCategorySelector(
+  return function memoizedCategoriesSelector(
     categories,
     emojisByCategory,
     modifier,
@@ -43,7 +43,7 @@ function createCategorySelector() {
       search !== lastSearch ||
       term !== lastTerm
     ) {
-      lastResult = categorySelector(categories, emojisByCategory, modifier, search, term);
+      lastResult = categoriesSelector(categories, emojisByCategory, modifier, search, term);
       lastCategories = categories;
       lastEmojisByCategory = emojisByCategory;
       lastModifier = modifier;
@@ -54,6 +54,3 @@ function createCategorySelector() {
     return lastResult;
   }
 }
-
-
-export default createCategorySelector;

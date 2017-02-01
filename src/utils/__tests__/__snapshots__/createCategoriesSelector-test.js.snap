@@ -1,4 +1,4 @@
-exports[`createCategorySelector should provide results based on a search term 1`] = `
+exports[`createCategoriesSelector should provide results based on a search term 1`] = `
 Array [
   Object {
     "category": Object {
@@ -4388,7 +4388,7 @@ Array [
 ]
 `;
 
-exports[`createCategorySelector should provide results when search is disabled 1`] = `
+exports[`createCategoriesSelector should provide results when search is disabled 1`] = `
 Array [
   Object {
     "category": Object {
@@ -26612,7 +26612,7 @@ Array [
 ]
 `;
 
-exports[`createCategorySelector should provide results with a non-default modifier 1`] = `
+exports[`createCategoriesSelector should provide results with a non-default modifier 1`] = `
 Array [
   Object {
     "category": Object {

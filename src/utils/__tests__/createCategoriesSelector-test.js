@@ -1,11 +1,11 @@
 import strategy from 'emojione/emoji.json';
 import {defaultCategories} from '../../constants';
 import createEmojisFromStrategy from '../createEmojisFromStrategy';
-import createCategorySelector from '../createCategorySelector';
+import createCategoriesSelector from '../createCategoriesSelector';
 
-describe('createCategorySelector', () => {
+describe('createCategoriesSelector', () => {
   const emojisByCategory = createEmojisFromStrategy(strategy);
-  const categorySelector = createCategorySelector();
+  const categorySelector = createCategoriesSelector();
 
   it('should provide results when search is disabled', () => {
     const modifier = '0';

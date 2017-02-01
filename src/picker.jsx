@@ -6,7 +6,7 @@ import store from 'store';
 import each from 'lodash/each';
 import map from 'lodash/map';
 import Categories from './categories';
-import createCategorySelector from './utils/createCategorySelector';
+import createCategoriesSelector from './utils/createCategoriesSelector';
 import createEmojisFromStrategy from './utils/createEmojisFromStrategy';
 import {defaultCategories} from './constants';
 
@@ -40,7 +40,7 @@ const Picker = React.createClass({
     },
 
     componentWillMount: function() {
-      this.categorySelector = createCategorySelector();
+      this.categoriesSelector = createCategoriesSelector();
 
       each(this.props.emojione, (value, key) => {
         emojione[key] = value;
@@ -87,7 +87,7 @@ const Picker = React.createClass({
     },
 
     _renderCategories: function() {
-      const categories = this.categorySelector(
+      const categories = this.categoriesSelector(
         this.props.categories,
         this.state.emojis,
         this.state.modifier,
