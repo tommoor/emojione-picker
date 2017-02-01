@@ -13,10 +13,7 @@ class Category extends Component {
     return (
       <div className="emoji-category" ref={this._setRef} style={style}>
         <div className="emoji-category-toolbar">
-          <h2
-            ref={category.title}
-            className="emoji-category-header"
-          >
+          <h2 className="emoji-category-header">
             {category.title}
           </h2>
           <div className="emoji-category-heading-decoration">
