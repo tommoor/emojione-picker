@@ -45,9 +45,9 @@
 }
 
 .emoji-dialog .emoji-category-list {
-  list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .emoji-dialog .emoji-category-list li {
@@ -87,10 +87,6 @@
   vertical-align: middle;
 }
 
-.emoji-dialog .emoji-search-wrapper {
-  padding: 6px 10px;
-}
-
 .emoji-dialog .modifiers li {
   display: inline-block;
   padding: 0 2px;
@@ -128,6 +124,10 @@
   -webkit-transform: scale(1.2);
   -moz-transform: scale(1.2);
   transform: scale(1.2);
+}
+
+.emoji-dialog .emoji-search-wrapper {
+  padding: 6px 10px;
 }
 
 .emoji-dialog .emoji-search {
