@@ -2,21 +2,6 @@ import React, {PropTypes, Component} from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import Emoji from './emoji';
 
-const style = {
-  listStyle: 'none',
-  margin: 0,
-  padding: 0,
-};
-
-const listItemStyle = {
-  borderRadius: 4,
-  boxSizing: 'border-box',
-  display: 'inline-block',
-  width: 32,
-  height: 32,
-  padding: 4,
-};
-
 export default class CategoryList extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
@@ -24,7 +9,7 @@ export default class CategoryList extends Component {
 
   render() {
     return (
-      <ul className="emoji-category-list" style={style}>
+      <ul className="emoji-category-list">
         {this.props.emojis.map(emoji => this._renderEmoji(emoji))}
       </ul>
     )
@@ -34,7 +19,7 @@ export default class CategoryList extends Component {
     const {onChange} = this.props;
 
     return (
-      <li key={emoji.unicode} style={listItemStyle}>
+      <li key={emoji.unicode}>
         <Emoji
           {...emoji}
           ariaLabel={emoji.name}

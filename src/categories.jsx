@@ -1,8 +1,13 @@
 import React, {PropTypes, Component} from 'react';
-import {AutoSizer, CellMeasurer, List} from 'react-virtualized';
+import {AutoSizer, List} from 'react-virtualized';
 import {findIndex, throttle} from 'lodash';
 import Category from './category';
 import Modifiers from './modifiers';
+
+const CATEGORY_MARGIN_BOTTOM = 6;
+const EMOJI_PER_ROW = 8;
+const HEADER_HEIGHT = 35;
+const ROW_HEIGHT = 32;
 
 class Categories extends Component {
   constructor(props, context) {
@@ -17,7 +22,6 @@ class Categories extends Component {
       this.props.categories !== prevProps.categories ||
       this.props.modifier !== prevProps.modifier
     ) {
-      this.cellMeasurer.resetMeasurements(),
       this.list.recomputeRowHeights();
     }
   }
@@ -28,29 +32,19 @@ class Categories extends Component {
     return (
       <AutoSizer>
         {({height, width}) => (
-          <CellMeasurer
-            cellRenderer={this._cellRenderer}
-            columnCount={1}
-            ref={this._setCellMeasurerRef}
+          <List
+            estimatedRowSize={800}
+            height={height}
+            onScroll={this._onScroll}
+            overscanRowCount={1}
+            ref={this._setListRef}
             rowCount={rowCount}
+            rowHeight={this._rowHeight}
+            rowRenderer={this._rowRenderer}
+            scrollToAlignment="start"
+            tabIndex={null}
             width={width}
-          >
-            {({getRowHeight}) => (
-              <List
-                estimatedRowSize={800}
-                height={height}
-                onScroll={this._onScroll}
-                overscanRowCount={1}
-                ref={this._setListRef}
-                rowCount={rowCount}
-                rowHeight={getRowHeight}
-                rowRenderer={this._rowRenderer}
-                scrollToAlignment="start"
-                tabIndex={null}
-                width={width}
-              />
-            )}
-          </CellMeasurer>
+          />
         )}
       </AutoSizer>
     );
@@ -58,10 +52,6 @@ class Categories extends Component {
 
   _cellRenderer = ({rowIndex, ...rest}) => {
     return this._rowRenderer({index: rowIndex, ...rest});
-  }
-
-  _setCellMeasurerRef = cellMeasurer => {
-    this.cellMeasurer = cellMeasurer;
   }
 
   _setListRef = list => {
@@ -125,6 +115,13 @@ class Categories extends Component {
     return (
       <Category {...attributes} />
     );
+  }
+
+  _rowHeight = ({index}) => {
+    const categoryEmojiCount = this.props.categories[index].emojis.length;
+    const rowCount = Math.ceil(categoryEmojiCount / EMOJI_PER_ROW);
+
+    return HEADER_HEIGHT + (rowCount * ROW_HEIGHT) + CATEGORY_MARGIN_BOTTOM;
   }
 
   _setCategoryRef(id) {

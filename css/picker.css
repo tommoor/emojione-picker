@@ -44,6 +44,34 @@
   filter: grayscale(0);
 }
 
+.emoji-dialog .emoji-category {
+  box-sizing: border-box;
+  overflow-y: hidden;
+  padding-left: 10px;
+  margin-bottom: 6px;
+}
+
+.emoji-dialog .emoji-category-toolbar {
+  display: table;
+  margin: 4px 0 10px;
+  width: 100%;
+}
+
+.emoji-dialog .emoji-category-header {
+  box-sizing: border-box;
+  display: table-cell;
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: normal;
+  color: #444;
+}
+
+.emoji-dialog .emoji-category-heading-decoration {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
+
 .emoji-dialog .emoji-search-wrapper {
   padding: 6px 10px;
 }
@@ -108,11 +136,26 @@
   top: 83px;
 }
 
+.emoji-dialog .emoji-category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.emoji-dialog .emoji-category-list li {
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+}
+
 .emoji-dialog .emoji-category-list li:hover {
   background: #F5F7F9;
 }
 
-.emoji-category .emoji img.emojione {
+.emoji-dialog .emoji-category-list .emoji img {
   width: 22px;
   height: 22px;
 }
