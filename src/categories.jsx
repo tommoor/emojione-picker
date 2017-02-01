@@ -50,14 +50,6 @@ class Categories extends Component {
     );
   }
 
-  _cellRenderer = ({rowIndex, ...rest}) => {
-    return this._rowRenderer({index: rowIndex, ...rest});
-  }
-
-  _setListRef = list => {
-    this.list = list;
-  }
-
   _onScroll = throttle(({scrollTop}) => {
     const activeCategory = this._getActiveCategory(scrollTop);
     if (activeCategory !== this.lastActiveCategory) {
@@ -65,6 +57,10 @@ class Categories extends Component {
       this.props.onActiveCategoryChange(activeCategory);
     }
   }, 100)
+
+  _setListRef = list => {
+    this.list = list;
+  }
 
   getActiveCategory() {
     return this._getActiveCategory();
@@ -87,6 +83,13 @@ class Categories extends Component {
     if (categories.length > 0) {
       return categories[0].id;
     }
+  }
+
+  _rowHeight = ({index}) => {
+    const categoryEmojiCount = this.props.categories[index].emojis.length;
+    const rowCount = Math.ceil(categoryEmojiCount / EMOJI_PER_ROW);
+
+    return HEADER_HEIGHT + (rowCount * ROW_HEIGHT) + CATEGORY_MARGIN_BOTTOM;
   }
 
   _rowRenderer = ({key, index, style}) => {
@@ -115,13 +118,6 @@ class Categories extends Component {
     return (
       <Category {...attributes} />
     );
-  }
-
-  _rowHeight = ({index}) => {
-    const categoryEmojiCount = this.props.categories[index].emojis.length;
-    const rowCount = Math.ceil(categoryEmojiCount / EMOJI_PER_ROW);
-
-    return HEADER_HEIGHT + (rowCount * ROW_HEIGHT) + CATEGORY_MARGIN_BOTTOM;
   }
 
   _setCategoryRef(id) {
