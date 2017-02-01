@@ -72,24 +72,28 @@
   width: 100%;
 }
 
+.emoji-dialog .emoji-category-toolbar > * {
+  display: table-cell;
+}
+
 .emoji-dialog .emoji-category-header {
   box-sizing: border-box;
-  display: table-cell;
   font-size: 18px;
   font-family: sans-serif;
   font-weight: normal;
   color: #444;
+  padding-left: 6px;
 }
 
 .emoji-dialog .emoji-category-heading-decoration {
-  display: table-cell;
+  padding-right: 6px;
   text-align: right;
   vertical-align: middle;
 }
 
 .emoji-dialog .modifiers {
   list-style: none;
-  padding: 0 6px 0 0;
+  padding: 0;
   margin: 0;
   text-align: right;
   vertical-align: middle;
