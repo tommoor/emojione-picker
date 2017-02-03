@@ -48,6 +48,8 @@
 }
 
 .emoji-dialog .emoji-row {
+  box-sizing: border-box;
+  overflow-y: hidden;
   padding-left: 10px
 }
 
@@ -60,7 +62,7 @@
 .emoji-dialog .emoji-category-header {
   box-sizing: border-box;
   overflow-y: hidden;
-  padding: 8px 19px 0 16px;
+  padding: 8px 7px 0 16px;
   display: table;
 }
 
@@ -156,7 +158,7 @@
   background: #F5F7F9;
 }
 
-.emoji-dialog .emoji-row .emoji img {
+.emoji-dialog .emoji {
   width: 22px;
   height: 22px;
 }
