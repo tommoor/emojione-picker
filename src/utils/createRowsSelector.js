@@ -1,7 +1,6 @@
-import map from 'lodash/map';
-import values from 'lodash/values';
+import {chunk, map, values} from 'lodash';
 
-function categoriesSelector(categories, emojisByCategory, modifier, search, term) {
+function rowsSelector(categories, emojisByCategory, modifier, search, term) {
   const findEmojiVariant = emojis => modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
   const searchTermRegExp = new RegExp(`^${term}`);
   const keywordMatchesSearchTerm = keyword => searchTermRegExp.test(keyword);
@@ -18,10 +17,26 @@ function categoriesSelector(categories, emojisByCategory, modifier, search, term
       emojis,
       id,
     };
-  }).filter(({emojis}) => emojis.length > 0);
+  })
+    .filter(({emojis}) => emojis.length > 0)
+    .map(({category, emojis, id}) => {
+      return [
+        {
+          category,
+          id,
+        },
+        ...chunk(emojis, 8),
+      ];
+    })
+    .reduce((rows, categoryAndEmojiRows) => {
+      return [
+        ...rows,
+        ...categoryAndEmojiRows,
+      ];
+    }, []);
 }
 
-export default function createCategoriesSelector() {
+export default function createRowsSelector() {
   let lastCategories;
   let lastEmojisByCategory;
   let lastModifier;
@@ -29,7 +44,7 @@ export default function createCategoriesSelector() {
   let lastTerm;
   let lastResult;
 
-  return function memoizedCategoriesSelector(
+  return function memoizedRowsSelector(
     categories,
     emojisByCategory,
     modifier,
@@ -43,7 +58,7 @@ export default function createCategoriesSelector() {
       search !== lastSearch ||
       term !== lastTerm
     ) {
-      lastResult = categoriesSelector(categories, emojisByCategory, modifier, search, term);
+      lastResult = rowsSelector(categories, emojisByCategory, modifier, search, term);
       lastCategories = categories;
       lastEmojisByCategory = emojisByCategory;
       lastModifier = modifier;

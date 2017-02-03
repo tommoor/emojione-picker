@@ -1,15 +1,28 @@
 import React, {PropTypes, Component} from 'react';
 import {AutoSizer, List} from 'react-virtualized';
 import {findIndex, throttle} from 'lodash';
-import Category from './category';
+import CategoryHeader from './category-header';
+import EmojiRow from './emoji-row';
 import Modifiers from './modifiers';
 
-const CATEGORY_MARGIN_BOTTOM = 6;
-const EMOJI_PER_ROW = 8;
-const HEADER_HEIGHT = 35;
-const ROW_HEIGHT = 32;
+const CATEGORY_HEADER_ROW_HEIGHT = 46;
+const EMOJI_ROW_HEIGHT = 32;
 
-class Categories extends Component {
+export default class Categories extends Component {
+  static propTypes = {
+    rows: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.shape({
+        category: PropTypes.object.isRequired,
+        id: PropTypes.string.isRequired,
+      }),
+      PropTypes.arrayOf(PropTypes.object).isRequired,
+    ])).isRequired,
+    modifier: PropTypes.string.isRequired,
+    onActiveCategoryChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onModifierChange: PropTypes.func.isRequired,
+  }
+
   constructor(props, context) {
     super(props, context);
 
@@ -19,7 +32,7 @@ class Categories extends Component {
 
   componentDidUpdate(prevProps) {
     if (
-      this.props.categories !== prevProps.categories ||
+      this.props.rows !== prevProps.rows ||
       this.props.modifier !== prevProps.modifier
     ) {
       this.list.recomputeRowHeights();
@@ -27,16 +40,14 @@ class Categories extends Component {
   }
 
   render() {
-    const rowCount = this.props.categories.length;
+    const rowCount = this.props.rows.length;
 
     return (
       <AutoSizer>
         {({height, width}) => (
           <List
-            estimatedRowSize={800}
             height={height}
             onScroll={this._onScroll}
-            overscanRowCount={1}
             ref={this._setListRef}
             rowCount={rowCount}
             rowHeight={this._rowHeight}
@@ -67,39 +78,58 @@ class Categories extends Component {
   }
 
   _getActiveCategory(scrollTop = 0) {
-    const {categories} = this.props;
-    const activeCategoryProps = categories
-      .slice()
-      .reverse()
-      .find(({id}) => {
-        const ref = this.categories[id];
-        return ref && scrollTop >= ref.getOffsetTop();
-      });
+    const {rows} = this.props;
 
-    if (activeCategoryProps) {
-      return activeCategoryProps.id;
+    if (scrollTop === 0) {
+      if (rows.length === 0) return undefined;
+      return rows[0].id;
     }
 
-    if (categories.length > 0) {
-      return categories[0].id;
+    let firstFullyVisibleRowIndex = 0;
+    let accumulatedScrollTop = 0;
+
+    while (accumulatedScrollTop < scrollTop) {
+      accumulatedScrollTop += this._rowHeight({index: firstFullyVisibleRowIndex});
+
+      if (accumulatedScrollTop <= scrollTop) {
+        firstFullyVisibleRowIndex +=1;
+      }
     }
+
+    const currentRow = this.props.rows[firstFullyVisibleRowIndex];
+
+    if (Array.isArray(currentRow)) {
+      return currentRow[0].category;
+    }
+
+    return currentRow.id;
   }
 
   _rowHeight = ({index}) => {
-    const categoryEmojiCount = this.props.categories[index].emojis.length;
-    const rowCount = Math.ceil(categoryEmojiCount / EMOJI_PER_ROW);
-
-    return HEADER_HEIGHT + (rowCount * ROW_HEIGHT) + CATEGORY_MARGIN_BOTTOM;
+    const row = this.props.rows[index];
+    return Array.isArray(row) ? EMOJI_ROW_HEIGHT : CATEGORY_HEADER_ROW_HEIGHT;
   }
 
   _rowRenderer = ({key, index, style}) => {
-    const {category, emojis, id} = this.props.categories[index];
+    const row = this.props.rows[index];
+    const {onChange} = this.props;
 
+    if (Array.isArray(row)) {
+      return (
+        <EmojiRow
+          key={key}
+          onChange={onChange}
+          style={style}
+          emojis={row}
+        />
+      );
+    }
+
+    const {category, id} = row;
     const attributes = {
       key,
       category,
-      emojis,
-      onChange: this.props.onChange,
+      onChange,
       ref: this._setCategoryRef(id),
       style,
     };
@@ -116,7 +146,7 @@ class Categories extends Component {
     }
 
     return (
-      <Category {...attributes} />
+      <CategoryHeader {...attributes} />
     );
   }
 
@@ -127,21 +157,7 @@ class Categories extends Component {
   }
 
   jumpToCategory(id) {
-    const index = findIndex(this.props.categories, category => category.id === id);
+    const index = findIndex(this.props.rows, category => category.id === id);
     this.list.scrollToRow(index);
   }
 }
-
-Categories.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.object.isRequired,
-    emojis: PropTypes.arrayOf(PropTypes.object).isRequired,
-    id: PropTypes.string.isRequired,
-  })).isRequired,
-  modifier: PropTypes.string.isRequired,
-  onActiveCategoryChange: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onModifierChange: PropTypes.func.isRequired,
-};
-
-module.exports = Categories;
