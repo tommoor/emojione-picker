@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {AutoSizer, List} from 'react-virtualized';
-import {findIndex, throttle} from 'lodash';
+import findIndex from 'lodash/findIndex';
+import throttle from 'lodash/throttle';
 import CategoryHeader from './category-header';
 import EmojiRow from './emoji-row';
 import Modifiers from './modifiers';

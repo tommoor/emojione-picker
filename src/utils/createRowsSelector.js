@@ -1,4 +1,6 @@
-import {chunk, map, values} from 'lodash';
+import chunk from 'lodash/chunk';
+import map from 'lodash/map';
+import values from 'lodash/values';
 
 function rowsSelector(categories, emojisByCategory, modifier, search, term) {
   const findEmojiVariant = emojis => modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
