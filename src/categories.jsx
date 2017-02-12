@@ -6,6 +6,8 @@ import CategoryHeader from './category-header';
 import EmojiRow from './emoji-row';
 import Modifiers from './modifiers';
 
+// These height values must be kept in sync with the heights
+// (margin + padding + content height) defined in CSS.
 const CATEGORY_HEADER_ROW_HEIGHT = 46;
 const EMOJI_ROW_HEIGHT = 32;
 
