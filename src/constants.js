@@ -1,34 +1,34 @@
-export const defaultCategories = {
+export const defaultCategories = { // eslint-disable-line
   people: {
     title: 'People',
-    emoji: 'smile'
+    emoji: 'smile',
   },
   nature: {
     title: 'Nature',
-    emoji: 'hamster'
+    emoji: 'hamster',
   },
   food: {
     title: 'Food & Drink',
-    emoji: 'pizza'
+    emoji: 'pizza',
   },
   activity: {
     title: 'Activity',
-    emoji: 'soccer'
+    emoji: 'soccer',
   },
   travel: {
     title: 'Travel & Places',
-    emoji: 'earth_americas'
+    emoji: 'earth_americas',
   },
   objects: {
     title: 'Objects',
-    emoji: 'bulb'
+    emoji: 'bulb',
   },
   symbols: {
     title: 'Symbols',
-    emoji: 'clock9'
+    emoji: 'clock9',
   },
   flags: {
     title: 'Flags',
-    emoji: 'flag_gb'
-  }
+    emoji: 'flag_gb',
+  },
 };

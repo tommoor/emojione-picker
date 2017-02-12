@@ -1,5 +1,5 @@
 import strategy from 'emojione/emoji.json';
-import {defaultCategories} from '../../constants';
+import { defaultCategories } from '../../constants';
 import createEmojisFromStrategy from '../createEmojisFromStrategy';
 import createRowsSelector from '../createRowsSelector';
 

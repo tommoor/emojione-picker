@@ -8,7 +8,7 @@ export default function createEmojisFromStrategy(strategy) {
     const value = strategy[key];
 
     // skip unknown categories
-    if (value.category !== 'modifier') {
+    if (value.category !== "modifier") {
       if (!emojis[value.category]) emojis[value.category] = {};
       const match = key.match(/(.*?)_tone(.*?)$/);
 

@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { Component } from "react";
 
-const Modifier = React.createClass({
-  propTypes: {
-    onKeyUp: React.PropTypes.func,
-    onClick: React.PropTypes.func,
+export default class Modifier extends Component {
+  static propTypes = {
+    onClick: React.PropTypes.func.isRequired,
     active: React.PropTypes.bool,
-    hex: React.PropTypes.string
-  },
+    type: React.PropTypes.string.isRequired,
+    hex: React.PropTypes.string.isRequired
+  };
 
-  render: function() {
+  _handleClick = ev => {
+    this.props.onClick(ev, this.props.type);
+  };
+
+  render() {
     return (
       <a
-        onKeyUp={this.props.onKeyUp}
-        onClick={this.props.onClick}
+        onClick={this._handleClick}
         className={this.props.active ? "modifier active" : "modifier"}
-        style={{background: this.props.hex}}
+        style={{ background: this.props.hex }}
+        aria-label={`Fitzpatrick type ${this.props.type}`}
       />
     );
   }
-});
-
-
-module.exports = Modifier;
+}

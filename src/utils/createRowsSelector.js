@@ -1,17 +1,18 @@
-import chunk from 'lodash/chunk';
-import map from 'lodash/map';
-import values from 'lodash/values';
+import chunk from "lodash/chunk";
+import map from "lodash/map";
+import values from "lodash/values";
 
 function rowsSelector(categories, emojisByCategory, modifier, search, term) {
-  const findEmojiVariant = emojis => modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
-  const searchTermRegExp = new RegExp(`^(?:.* +)*${term}`, 'i');
+  const findEmojiVariant = emojis =>
+    modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
+  const searchTermRegExp = new RegExp(`^(?:.* +)*${term}`, "i");
   const keywordMatchesSearchTerm = keyword => searchTermRegExp.test(keyword);
-  const emojiMatchesSearchTerm = emoji => emoji.keywords.concat(emoji.name).some(keywordMatchesSearchTerm);
+  const emojiMatchesSearchTerm = emoji =>
+    emoji.keywords.concat(emoji.name).some(keywordMatchesSearchTerm);
 
   return map(categories, (category, id) => {
     const list = emojisByCategory[id] || {};
-    let emojis = values(list)
-      .map(findEmojiVariant);
+    let emojis = values(list).map(findEmojiVariant);
 
     if (search && term) {
       emojis = emojis.filter(emojiMatchesSearchTerm);
@@ -20,25 +21,21 @@ function rowsSelector(categories, emojisByCategory, modifier, search, term) {
     return {
       category,
       emojis,
-      id,
+      id
     };
   })
-    .filter(({emojis}) => emojis.length > 0)
-    .map(({category, emojis, id}) => {
-      return [
-        {
-          category,
-          id,
-        },
-        ...chunk(emojis, 8),
-      ];
-    })
-    .reduce((rows, categoryAndEmojiRows) => {
-      return [
-        ...rows,
-        ...categoryAndEmojiRows,
-      ];
-    }, []);
+    .filter(({ emojis }) => emojis.length > 0)
+    .map(({ category, emojis, id }) => [
+      {
+        category,
+        id
+      },
+      ...chunk(emojis, 8)
+    ])
+    .reduce(
+      (rows, categoryAndEmojiRows) => [...rows, ...categoryAndEmojiRows],
+      []
+    );
 }
 
 export default function createRowsSelector() {
@@ -54,16 +51,22 @@ export default function createRowsSelector() {
     emojisByCategory,
     modifier,
     search,
-    term,
+    term
   ) {
     if (
       categories !== lastCategories ||
-      emojisByCategory !== lastEmojisByCategory ||
-      modifier !== lastModifier ||
-      search !== lastSearch ||
-      term !== lastTerm
+        emojisByCategory !== lastEmojisByCategory ||
+        modifier !== lastModifier ||
+        search !== lastSearch ||
+        term !== lastTerm
     ) {
-      lastResult = rowsSelector(categories, emojisByCategory, modifier, search, term);
+      lastResult = rowsSelector(
+        categories,
+        emojisByCategory,
+        modifier,
+        search,
+        term
+      );
       lastCategories = categories;
       lastEmojisByCategory = emojisByCategory;
       lastModifier = modifier;
@@ -72,5 +75,5 @@ export default function createRowsSelector() {
     }
 
     return lastResult;
-  }
+  };
 }

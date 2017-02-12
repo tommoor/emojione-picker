@@ -1,26 +1,37 @@
-import React from 'react';
-import emojione from 'emojione';
+import React, { Component } from "react";
+import emojione from "emojione";
 
-const Emoji = React.createClass({
-  propTypes: {
+export default class Emoji extends Component {
+  static propTypes = {
     ariaLabel: React.PropTypes.string,
     name: React.PropTypes.string,
     onSelect: React.PropTypes.func.isRequired,
     shortname: React.PropTypes.string,
     title: React.PropTypes.string,
     role: React.PropTypes.string
-  },
+  };
 
-  shouldComponentUpdate: function(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     // avoid rerendering the Emoji component if the shortname hasn't changed
     return nextProps.shortname !== this.props.shortname;
-  },
+  }
 
-  createMarkup: function() {
-    return {__html: emojione.shortnameToImage(this.props.shortname)};
-  },
+  createMarkup() {
+    return { __html: emojione.shortnameToImage(this.props.shortname) };
+  }
 
-  render: function() {
+  _onKeyUp = ev => {
+    ev.preventDefault();
+    if (ev.key === "Enter" || ev.key === " ") {
+      this.props.onSelect();
+    }
+  };
+
+  _onClick = () => {
+    this.props.onSelect();
+  };
+
+  render() {
     return (
       <div
         onKeyUp={this._onKeyUp}
@@ -33,18 +44,5 @@ const Emoji = React.createClass({
         dangerouslySetInnerHTML={this.createMarkup()}
       />
     );
-  },
-
-  _onKeyUp: function(e) {
-    e.preventDefault();
-    if (e.key === 'Enter' || e.key === ' ') {
-      this.props.onSelect();
-    }
-  },
-
-  _onClick: function() {
-    this.props.onSelect();
-  },
-});
-
-module.exports = Emoji;
+  }
+}
