@@ -4,15 +4,18 @@ import values from 'lodash/values';
 
 function rowsSelector(categories, emojisByCategory, modifier, search, term) {
   const findEmojiVariant = emojis => modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
-  const searchTermRegExp = new RegExp(`^${term}`);
+  const searchTermRegExp = new RegExp(`^(?:.* +)*${term}`, 'i');
   const keywordMatchesSearchTerm = keyword => searchTermRegExp.test(keyword);
-  const emojiMatchesSearchTerm = emoji => !search || !term || emoji.keywords.some(keywordMatchesSearchTerm);
+  const emojiMatchesSearchTerm = emoji => emoji.keywords.concat(emoji.name).some(keywordMatchesSearchTerm);
 
   return map(categories, (category, id) => {
     const list = emojisByCategory[id] || {};
-    const emojis = values(list)
-      .map(findEmojiVariant)
-      .filter(emojiMatchesSearchTerm);
+    let emojis = values(list)
+      .map(findEmojiVariant);
+
+    if (search && term) {
+      emojis = emojis.filter(emojiMatchesSearchTerm);
+    }
 
     return {
       category,

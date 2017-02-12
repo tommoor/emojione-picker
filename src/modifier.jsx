@@ -20,4 +20,5 @@ const Modifier = React.createClass({
   }
 });
 
+
 module.exports = Modifier;
