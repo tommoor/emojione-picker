@@ -63,7 +63,7 @@ const Picker = React.createClass({
 
     _renderHeaderCategories: function() {
       return map(this.props.categories, (details, key) => (
-        <li key={key} className={this.state.category === key ? "active" : ""}>
+        <li key={key} className={this.state.category === key ? "active" : undefined}>
           <Emoji
             id={key}
             role="menuitem"

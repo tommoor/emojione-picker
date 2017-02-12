@@ -31,7 +31,8 @@
   padding: 9px 5px;
 }
 
-.emoji-dialog .emoji-dialog-header img {
+.emoji-dialog .emoji-dialog-header li img,
+.emoji-dialog .emoji-dialog-header li svg {
   width: 22px;
   height: 22px;
   -webkit-filter: grayscale(100%);
@@ -42,7 +43,8 @@
   background: #fff;
 }
 
-.emoji-dialog .emoji-dialog-header li.active img {
+.emoji-dialog .emoji-dialog-header li.active img,
+.emoji-dialog .emoji-dialog-header li.active svg {
   -webkit-filter: grayscale(0);
   filter: grayscale(0);
 }
