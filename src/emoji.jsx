@@ -3,10 +3,9 @@ import emojione from 'emojione';
 
 const Emoji = React.createClass({
   propTypes: {
-    onKeyUp: React.PropTypes.func,
-    onClick: React.PropTypes.func,
     ariaLabel: React.PropTypes.string,
     name: React.PropTypes.string,
+    onSelect: React.PropTypes.func.isRequired,
     shortname: React.PropTypes.string,
     title: React.PropTypes.string,
     role: React.PropTypes.string
@@ -24,8 +23,8 @@ const Emoji = React.createClass({
   render: function() {
     return (
       <div
-        onKeyUp={this.props.onKeyUp}
-        onClick={this.props.onClick}
+        onKeyUp={this._onKeyUp}
+        onClick={this._onClick}
         tabIndex="0"
         className="emoji"
         aria-label={this.props.ariaLabel}
@@ -34,7 +33,18 @@ const Emoji = React.createClass({
         dangerouslySetInnerHTML={this.createMarkup()}
       />
     );
-  }
+  },
+
+  _onKeyUp: function(e) {
+    e.preventDefault();
+    if (e.key === 'Enter' || e.key === ' ') {
+      this.props.onSelect();
+    }
+  },
+
+  _onClick: function() {
+    this.props.onSelect();
+  },
 });
 
 module.exports = Emoji;

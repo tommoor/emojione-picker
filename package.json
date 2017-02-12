@@ -5,11 +5,12 @@
   "description": "An emoji picker in React",
   "main": "lib/picker.js",
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "babel src -d lib --ignore __tests__",
     "preview": "./node_modules/.bin/browserify --extension=.jsx -d -t [ babelify ] preview.jsx -o lib/preview.js",
     "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ babelify ] src/*.jsx preview.jsx -o lib/preview.js",
     "example": "open http://localhost:8080/examples && http-server",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,10 +30,12 @@
   "dependencies": {
     "emojione": "^2.2.6",
     "lodash": "^4.15.0",
+    "react-virtualized": "^8.11.4",
     "store": "^1.3.20"
   },
   "peerDependencies": {
-    "react": ">=0.14.0"
+    "react": ">=0.14.0",
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -42,8 +45,16 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "http-server": "^0.9.0",
-    "react": "~15.2.0",
-    "react-dom": "~15.2.0",
+    "jest": "^18.1.0",
+    "react": "^15.4.2",
+    "react-addons-perf": "^15.4.2",
+    "react-addons-shallow-compare": "^15.0.0",
+    "react-dom": "^15.4.2",
     "watchify": "^3.7.0"
+  },
+  "jest": {
+    "testPathDirs": [
+      "src"
+    ]
   }
 }
