@@ -59,8 +59,6 @@ const Picker = React.createClass({
     },
 
     _renderHeaderCategories: function() {
-      const jumpToCategory = this._jumpToCategory;
-
       return map(this.props.categories, (details, key) => (
         <li key={key} className={this.state.category === key ? "active" : ""}>
           <Emoji
@@ -68,22 +66,12 @@ const Picker = React.createClass({
             role="menuitem"
             aria-label={`${key} category`}
             shortname={`:${details.emoji}:`}
-            onClick={function(e){
-              jumpToCategory(key);
-            }}
-            onKeyUp={function(e) {
-              e.preventDefault();
-              if (e.which === 13 || e.which === 32) {
-                jumpToCategory(key);
-              }
+            onSelect={() => {
+              this.categories.jumpToCategory(key);
             }}
           />
         </li>
       ));
-    },
-
-    _jumpToCategory(name) {
-      this.categories.jumpToCategory(name);
     },
 
     _renderCategories: function() {

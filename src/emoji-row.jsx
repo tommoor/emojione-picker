@@ -25,14 +25,8 @@ export default class EmojiRow extends Component {
               ariaLabel={emoji.name}
               role="option"
               key={emoji.unicode}
-              onClick={function(e) {
-                onChange(emoji);
-              }}
-              onKeyUp={function(e) {
-                e.preventDefault();
-                if (e.which === 13 || e.which === 32) {
-                  onChange(emoji);
-                }
+              onSelect={() => {
+                this.props.onChange(emoji);
               }}
             />
           );
