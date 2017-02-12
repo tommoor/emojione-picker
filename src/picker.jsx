@@ -5,6 +5,7 @@ import emojione from 'emojione';
 import store from 'store';
 import each from 'lodash/each';
 import map from 'lodash/map';
+import omit from 'lodash/omit';
 import Categories from './categories';
 import createRowsSelector from './utils/createRowsSelector';
 import createEmojisFromStrategy from './utils/createEmojisFromStrategy';
@@ -21,7 +22,9 @@ const Picker = React.createClass({
         React.PropTypes.bool,
         React.PropTypes.string,
       ]),
-      onChange: React.PropTypes.func.isRequired
+      className: React.PropTypes.string,
+      onChange: React.PropTypes.func.isRequired,
+      categories: React.PropTypes.object.isRequired,
     },
 
     getDefaultProps: function() {
@@ -35,7 +38,7 @@ const Picker = React.createClass({
       return {
         modifier: store.get('emoji-modifier') || '0',
         category: false,
-        term: this.props.search !== true ? this.props.search : ""
+        term: this.props.search !== true ? this.props.search : "",
       };
     },
 
@@ -119,10 +122,12 @@ const Picker = React.createClass({
     },
 
     render: function() {
+      const props = omit(this.props, Object.keys(Picker.propTypes));
       let classes = 'emoji-dialog';
       if (this.props.search === true) classes += ' with-search';
+      if (this.props.className) classes += ` ${this.props.className}`;
 
-      return <div className={classes} role="dialog">
+      return <div className={classes} role="dialog" {...props}>
         <header className="emoji-dialog-header" role="menu">
           <ul onBlur={this.setFocus}>{this._renderHeaderCategories()}</ul>
         </header>
