@@ -1,5 +1,5 @@
 .emoji-dialog {
-  width: 281px;
+  width: 276px;
   height: 220px;
   background: #fff;
   box-sizing: border-box;
@@ -62,7 +62,7 @@
 .emoji-dialog .emoji-category-header {
   box-sizing: border-box;
   overflow-y: hidden;
-  padding: 8px 7px 0 16px;
+  padding: 8px 16px 0;
   display: table;
 }
 
@@ -130,7 +130,7 @@
 }
 
 .emoji-dialog .emoji-search-wrapper {
-  padding: 6px 10px;
+  padding: 6px 16px;
 }
 
 .emoji-dialog .emoji-search {
