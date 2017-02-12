@@ -1,3 +1,4 @@
+import escape from "escape-string-regexp";
 import chunk from "lodash/chunk";
 import map from "lodash/map";
 import values from "lodash/values";
@@ -5,7 +6,7 @@ import values from "lodash/values";
 function rowsSelector(categories, emojisByCategory, modifier, search, term) {
   const findEmojiVariant = emojis =>
     modifier && emojis[modifier] ? emojis[modifier] : emojis[0];
-  const searchTermRegExp = new RegExp(`^(?:.* +)*${term}`, "i");
+  const searchTermRegExp = new RegExp(`^(?:.* +)*${escape(term)}`, "i");
   const keywordMatchesSearchTerm = keyword => searchTermRegExp.test(keyword);
   const emojiMatchesSearchTerm = emoji =>
     emoji.keywords.concat(emoji.name).some(keywordMatchesSearchTerm);

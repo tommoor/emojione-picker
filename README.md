@@ -117,7 +117,7 @@ npm install
 npm run watch
 ```
 
-Open `examples/index.html` in a browser to see a preview of the picker
+Open `examples/index.html` in a browser to see a preview of the picker.
 
 
 ## License
