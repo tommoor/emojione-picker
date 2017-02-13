@@ -66,7 +66,7 @@ export default class Picker extends Component {
     const emojis = {}
     emojis['frequentlyUsed'] = {}
 
-    frequentlyUsed.sort((a, b) => b.used - a.used).forEach(frequentlyUsed => {
+    frequentlyUsed.sort((a, b) => b.used - a.used).slice(0, 21).forEach(frequentlyUsed => {
       emojis['frequentlyUsed'][frequentlyUsed.strategyName] = [strategy[frequentlyUsed.strategyName]]
     })
     return emojis
@@ -79,7 +79,7 @@ export default class Picker extends Component {
       ...currentFrequentlyUsed.filter(f => f.strategyName !== strategyName),
       { 
         strategyName: strategyName, 
-        used: (currentFrequentlyUsed.find(f => f.strategyName === strategyName) || {used: 0}).used + 1
+        used: (currentFrequentlyUsed.find(f => f.strategyName === strategyName) || {used: 0}).used + 1 % 6
       }
     ]
     store.set('emoji-frequently-used', newFrequentlyUsed)
