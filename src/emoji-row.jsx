@@ -13,6 +13,10 @@ export default class EmojiRow extends Component {
     return shallowCompare(this, nextProps, nextState);
   }
 
+  _handleEmojiSelect = (ev, emoji) => {
+    this.props.onChange(emoji);
+  };
+
   render() {
     const { emojis, style } = this.props;
 
@@ -24,9 +28,7 @@ export default class EmojiRow extends Component {
             ariaLabel={emoji.name}
             role="option"
             key={emoji.unicode}
-            onSelect={() => {
-              this.props.onChange(emoji);
-            }}
+            onSelect={this._handleEmojiSelect}
           />
         ))}
       </div>

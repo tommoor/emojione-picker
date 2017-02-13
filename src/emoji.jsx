@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import pick from "lodash/pick";
 import emojione from "emojione";
 
 export default class Emoji extends Component {
@@ -20,22 +21,35 @@ export default class Emoji extends Component {
     return { __html: emojione.shortnameToImage(this.props.shortname) };
   }
 
-  _onKeyUp = ev => {
+  _handleKeyUp = ev => {
     ev.preventDefault();
     if (ev.key === "Enter" || ev.key === " ") {
-      this.props.onSelect();
+      this._handleClick(ev);
     }
   };
 
-  _onClick = () => {
-    this.props.onSelect();
+  _handleClick = ev => {
+    this.props.onSelect(
+      ev,
+      pick(
+        this.props,
+        "aliases",
+        "aliases_ascii",
+        "category",
+        "name",
+        "shortcode",
+        "unicode",
+        "unicode_alternates",
+        "keywords"
+      )
+    );
   };
 
   render() {
     return (
       <div
-        onKeyUp={this._onKeyUp}
-        onClick={this._onClick}
+        onKeyUp={this._handleKeyUp}
+        onClick={this._handleClick}
         tabIndex="0"
         className="emoji"
         aria-label={this.props.ariaLabel}
