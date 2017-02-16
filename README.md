@@ -1,4 +1,5 @@
 [![npm version](https://badge.fury.io/js/emojione-picker.svg)](https://badge.fury.io/js/emojione-picker)
+[![CircleCI](https://circleci.com/gh/tommoor/emojione-picker.svg?style=svg)](https://circleci.com/gh/tommoor/emojione-picker)
 
 # Emoji Picker
 
