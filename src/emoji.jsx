@@ -33,6 +33,7 @@ export default class Emoji extends Component {
       ev,
       pick(
         this.props,
+        "shortname",
         "aliases",
         "aliases_ascii",
         "category",
