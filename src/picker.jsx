@@ -22,6 +22,7 @@ export default class Picker extends Component {
       React.PropTypes.bool,
       React.PropTypes.string
     ]),
+    searchPlaceholder: React.PropTypes.string,
     className: React.PropTypes.string,
     onChange: React.PropTypes.func.isRequired,
     categories: React.PropTypes.object
@@ -29,6 +30,7 @@ export default class Picker extends Component {
 
   static defaultProps = {
     search: "",
+    searchPlaceholder: "Search…",
     categories: defaultCategories
   };
 
@@ -131,7 +133,7 @@ export default class Picker extends Component {
           <input
             className="emoji-search"
             type="search"
-            placeholder="Search..."
+            placeholder={this.props.searchPlaceholder}
             ref={this._setSearchRef}
             onChange={this._updateSearchTerm}
             autoFocus
