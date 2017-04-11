@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { AutoSizer, List } from "react-virtualized";
 import findIndex from "lodash/findIndex";
 import throttle from "lodash/throttle";

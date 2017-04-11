@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import emojione from "emojione";
 import store from "store";
 import each from "lodash/each";
@@ -13,19 +14,19 @@ import { defaultCategories } from "./constants";
 
 export default class Picker extends Component {
   static propTypes = {
-    emojione: React.PropTypes.shape({
-      imageType: React.PropTypes.string,
-      sprites: React.PropTypes.bool,
-      imagePathSVGSprites: React.PropTypes.string
+    emojione: PropTypes.shape({
+      imageType: PropTypes.string,
+      sprites: PropTypes.bool,
+      imagePathSVGSprites: PropTypes.string
     }),
-    search: React.PropTypes.oneOfType([
-      React.PropTypes.bool,
-      React.PropTypes.string
+    search: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string
     ]),
-    searchPlaceholder: React.PropTypes.string,
-    className: React.PropTypes.string,
-    onChange: React.PropTypes.func.isRequired,
-    categories: React.PropTypes.object
+    searchPlaceholder: PropTypes.string,
+    className: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    categories: PropTypes.object
   };
 
   static defaultProps = {

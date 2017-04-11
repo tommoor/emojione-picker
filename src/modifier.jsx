@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class Modifier extends Component {
   static propTypes = {
-    onClick: React.PropTypes.func.isRequired,
-    active: React.PropTypes.bool,
-    type: React.PropTypes.string.isRequired,
-    hex: React.PropTypes.string.isRequired
+    onClick: PropTypes.func.isRequired,
+    active: PropTypes.bool,
+    type: PropTypes.string.isRequired,
+    hex: PropTypes.string.isRequired
   };
 
   _handleClick = ev => {
