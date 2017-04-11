@@ -115,10 +115,10 @@ var settings = {
 
 ```
 npm install
-npm run watch
+npm start
 ```
 
-Open `examples/index.html` in a browser to see a preview of the picker.
+Open `http://localhost:8080` in a browser to see a preview of the picker.
 
 
 ## License

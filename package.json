@@ -8,7 +8,7 @@
     "build": "babel src -d lib --ignore __tests__",
     "preview": "./node_modules/.bin/browserify --extension=.jsx -d -t [ babelify ] preview.jsx -o lib/preview.js",
     "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ babelify ] src/*.jsx preview.jsx -o lib/preview.js",
-    "example": "open http://localhost:8080/examples && http-server",
+    "start": "concurrently \"npm run watch\" \"http-server ./examples\"",
     "prepublish": "npm run build",
     "test": "jest",
     "lint": "eslint src --fix"
@@ -49,16 +49,17 @@
     "babel-preset-stage-0": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "concurrently": "^3.4.0",
     "eslint": "^3.15.0",
     "eslint-plugin-prettier": "^2.0.0",
     "http-server": "^0.9.0",
     "jest": "^18.1.0",
     "prettier": "^0.16.0",
     "prop-types": "^15.5.6",
-    "react": "^15.4.2",
+    "react": "^15.5",
     "react-addons-perf": "^15.4.2",
     "react-addons-shallow-compare": "^15.0.0",
-    "react-dom": "^15.4.2",
+    "react-dom": "^15.5",
     "watchify": "^3.7.0"
   },
   "jest": {
