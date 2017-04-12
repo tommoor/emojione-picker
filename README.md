@@ -118,7 +118,7 @@ npm install
 npm start
 ```
 
-Open `http://localhost:8080` in a browser to see a preview of the picker.
+Open `http://localhost:8080/examples` in a browser to see a preview of the picker.
 
 
 ## License

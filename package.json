@@ -8,7 +8,7 @@
     "build": "babel src -d lib --ignore __tests__",
     "preview": "./node_modules/.bin/browserify --extension=.jsx -d -t [ babelify ] preview.jsx -o lib/preview.js",
     "watch": "./node_modules/.bin/watchify --extension=.jsx -d -t [ babelify ] src/*.jsx preview.jsx -o lib/preview.js",
-    "start": "concurrently \"npm run watch\" \"http-server ./examples\"",
+    "start": "concurrently \"npm run watch\" \"http-server .\"",
     "prepublish": "npm run build",
     "test": "jest",
     "lint": "eslint src --fix"
