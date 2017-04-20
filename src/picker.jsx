@@ -19,10 +19,7 @@ export default class Picker extends Component {
       sprites: PropTypes.bool,
       imagePathSVGSprites: PropTypes.string
     }),
-    search: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.string
-    ]),
+    search: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     searchPlaceholder: PropTypes.string,
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
