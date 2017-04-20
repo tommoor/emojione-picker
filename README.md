@@ -38,8 +38,8 @@ loaders: [
 
 ## Usage
 
-The npm module includes a pre-transpiled version of the picker so you don't need
-to run it through your JSX pipeline. Simply require the module like any other.
+The npm module includes a transpiled version of the picker so you don't need
+to run it through a JSX pipeline. Simply require the module like any other.
 
 ```javascript
 var EmojiPicker = require('emojione-picker');
@@ -74,12 +74,12 @@ input within the picker:
 ### Customize Categories
 
 You can easily customize the category icons by passing in alternatives to the
-component constructor. The emoji strings come from the shortname value in strategy.js
+component constructor. The emoji strings come from the shortname value in `strategy.js`.
 
 ```javascript
 var categories = {
   people: {
-    title:'People',
+    title: 'People',
     emoji: 'smile'
   },
   nature: {
