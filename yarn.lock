@@ -3494,7 +3494,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.2, prop-types@^15.5.6, prop-types@~15.5.0:
+prop-types@^15.5.2, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@~15.5.0:
   version "15.5.6"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.6.tgz#797a915b1714b645ebb7c5d6cc690346205bd2aa"
   dependencies:
@@ -3581,14 +3581,15 @@ react-dom@^15.5:
     object-assign "^4.1.0"
     prop-types "~15.5.0"
 
-react-virtualized@^8.11.4:
-  version "8.11.4"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.11.4.tgz#0bb94f1ecbd286d07145ce63983d0a11724522c0"
+react-virtualized@^9.7.4:
+  version "9.7.4"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.7.4.tgz#1b5b25c1397282c6ffc651b416befc69e282df12"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"
     dom-helpers "^2.4.0 || ^3.0.0"
     loose-envify "^1.3.0"
+    prop-types "^15.5.4"
 
 react@^15.5:
   version "15.5.3"
