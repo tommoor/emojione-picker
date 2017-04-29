@@ -94,6 +94,7 @@ export default class Picker extends Component {
     return (
       <div className="emoji-categories-wrapper">
         <Categories
+          nonce={this.props.nonce}
           ref={this._setCategoriesRef}
           rows={rows}
           modifier={this.state.modifier}

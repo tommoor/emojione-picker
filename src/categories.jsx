@@ -144,7 +144,7 @@ export default class Categories extends Component {
     const rowCount = this.props.rows.length;
 
     return (
-      <AutoSizer>
+      <AutoSizer nonce={this.props.nonce}>
         {({ height, width }) => (
           <List
             height={height}

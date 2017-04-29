@@ -110,6 +110,20 @@ var settings = {
 <EmojiPicker categories={categories} emojione={settings} />
 ```
 
+## Content Security Policy
+
+The picker uses _react-virtualized_, which creates an inlined style. Give the
+picker a nonce and set `Content-Security-Policy` field in HTTP header
+accordingly.
+
+```
+<EmojiPicker nonce={NONCE_GENERATED_WHEN_TRANSMITTING} />
+```
+
+```
+Content-Security-Policy: style-src: 'self' 'nonce-NONCE_GENERATED_WHEN_TRANSMITTING'
+```
+
 
 ## Development
 
