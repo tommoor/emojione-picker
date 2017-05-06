@@ -117,7 +117,7 @@ The picker uses _react-virtualized_, which creates an inlined style. Give the
 picker a nonce and set `Content-Security-Policy` field in HTTP header
 accordingly if your CSP requires this.
 
-```
+```javascript
 <EmojiPicker nonce={NONCE_GENERATED_WHEN_TRANSMITTING} />
 ```
 
