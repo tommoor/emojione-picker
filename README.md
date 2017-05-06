@@ -11,12 +11,14 @@ little something like this, but is easily customized:
 
 ## Installation
 
+`yarn add emojione-picker` or
 `npm i emojione-picker --save`
 
 This component has a peer dependency of `react-addons-shallow-compare` in
 addition to react itself. You should also install this if it is not included in
 your project:
 
+`yarn add react-addons-shallow-compare` or
 `npm i react-addons-shallow-compare --save`
 
 
@@ -38,7 +40,7 @@ loaders: [
 
 ## Usage
 
-The npm module includes a transpiled version of the picker so you don't need
+The module includes a transpiled version of the picker so you don't need
 to run it through a JSX pipeline. Simply require the module like any other.
 
 ```javascript
@@ -110,11 +112,11 @@ var settings = {
 <EmojiPicker categories={categories} emojione={settings} />
 ```
 
-## Content Security Policy
+### Content Security Policy
 
 The picker uses _react-virtualized_, which creates an inlined style. Give the
 picker a nonce and set `Content-Security-Policy` field in HTTP header
-accordingly.
+accordingly if your CSP requires this.
 
 ```
 <EmojiPicker nonce={NONCE_GENERATED_WHEN_TRANSMITTING} />
@@ -128,8 +130,8 @@ Content-Security-Policy: style-src: 'self' 'nonce-NONCE_GENERATED_WHEN_TRANSMITT
 ## Development
 
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 Open `http://localhost:8080/examples` in a browser to see a preview of the picker.
