@@ -11,15 +11,14 @@ little something like this, but is easily customized:
 
 ## Installation
 
-`yarn add emojione-picker` or
-`npm i emojione-picker --save`
+Install with your favorite package manager:
 
-This component has a peer dependency of `react-addons-shallow-compare` in
-addition to react itself. You should also install this if it is not included in
-your project:
-
-`yarn add react-addons-shallow-compare` or
-`npm i react-addons-shallow-compare --save`
+```
+npm i emojione-picker --save
+```
+```
+yarn add emojione-picker
+```
 
 
 ### Webpack
