@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { AutoSizer, List } from "react-virtualized";
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
+import List from "react-virtualized/dist/commonjs/List";
 import findIndex from "lodash/findIndex";
 import throttle from "lodash/throttle";
 import CategoryHeader from "./category-header";
