@@ -35,7 +35,7 @@ const Picker = React.createClass({
             title: 'Nature',
             emoji: 'hamster'
           },
-          food: {
+          foods: {
             title: 'Food & Drink',
             emoji: 'pizza'
           },
