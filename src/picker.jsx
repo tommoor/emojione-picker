@@ -35,7 +35,7 @@ const Picker = React.createClass({
             title: 'Nature',
             emoji: 'hamster'
           },
-          food: {
+          foods: {
             title: 'Food & Drink',
             emoji: 'pizza'
           },
@@ -168,6 +168,7 @@ const Picker = React.createClass({
       const offsetTop = this.refs[name].offsetTop;
       const padding = 5;
       this.refs.grandlist.scrollTop = offsetTop-padding;
+      console.log(offsetTop)
     },
 
     renderCategories: function() {
