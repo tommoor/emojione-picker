@@ -168,7 +168,6 @@ const Picker = React.createClass({
       const offsetTop = this.refs[name].offsetTop;
       const padding = 5;
       this.refs.grandlist.scrollTop = offsetTop-padding;
-      console.log(offsetTop)
     },
 
     renderCategories: function() {
