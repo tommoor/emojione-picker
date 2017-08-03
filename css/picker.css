@@ -31,20 +31,12 @@
   padding: 9px 5px;
 }
 
-.emoji-dialog .emoji-dialog-header li img,
-.emoji-dialog .emoji-dialog-header li svg {
-  width: 22px;
-  height: 22px;
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
-}
-
 .emoji-dialog .emoji-dialog-header li.active {
   background: #fff;
 }
 
-.emoji-dialog .emoji-dialog-header li.active img,
-.emoji-dialog .emoji-dialog-header li.active svg {
+.emoji-dialog li.active img,
+.emoji-dialog li.active svg {
   -webkit-filter: grayscale(0);
   filter: grayscale(0);
 }
@@ -57,7 +49,7 @@
 
 .emoji-dialog .emoji-row .emoji {
   display: inline-block;
-  padding: 5px;
+  margin: 5px 9px;
   border-radius: 4px;
 }
 
@@ -161,6 +153,6 @@
 }
 
 .emoji-dialog .emoji {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
 }
