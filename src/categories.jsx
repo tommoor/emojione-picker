@@ -155,7 +155,7 @@ export default class Categories extends Component {
             rowHeight={this._rowHeight}
             rowRenderer={this._rowRenderer}
             scrollToAlignment="start"
-            tabIndex={null}
+            tabIndex={0}
             width={width}
           />
         )}

@@ -52,7 +52,7 @@ export default class Emoji extends Component {
       <div
         onKeyUp={this._handleKeyUp}
         onClick={this._handleClick}
-        tabIndex="0"
+        tabIndex={0}
         className="emoji"
         aria-label={this.props.ariaLabel}
         title={this.props.name}
