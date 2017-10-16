@@ -34,7 +34,7 @@
     "lodash": "^4.15.0",
     "react": ">=0.14.0",
     "react-addons-shallow-compare": ">=0.14.0",
-    "react-virtualized": "^9.7.4",
+    "react-virtualized": "^9.11.1",
     "store": "^2.0.4"
   },
   "devDependencies": {
