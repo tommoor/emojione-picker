@@ -19,6 +19,7 @@ export default class Picker extends Component {
       sprites: PropTypes.bool,
       imagePathSVGSprites: PropTypes.string
     }),
+    useNative: PropTypes.bool,
     search: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     searchPlaceholder: PropTypes.string,
     className: PropTypes.string,
@@ -74,6 +75,7 @@ export default class Picker extends Component {
           role="menuitem"
           ariaLabel={`${key} category`}
           shortname={`:${details.emoji}:`}
+          useNative={this.props.useNative}
           onSelect={() => {
             this.categories.jumpToCategory(key);
           }}
@@ -119,6 +121,10 @@ export default class Picker extends Component {
       this.setState({ category });
     }
   };
+
+  renderModifiers: function() {
+      return null;
+  },
 
   _onModifierChange = modifier => {
     this.setState({ modifier });

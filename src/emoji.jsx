@@ -10,7 +10,8 @@ export default class Emoji extends Component {
     onSelect: PropTypes.func.isRequired,
     shortname: PropTypes.string,
     title: PropTypes.string,
-    role: PropTypes.string
+    role: PropTypes.string,
+    useNative: React.PropTypes.bool
   };
 
   shouldComponentUpdate(nextProps) {
@@ -21,6 +22,14 @@ export default class Emoji extends Component {
   createMarkup() {
     return { __html: emojione.shortnameToImage(this.props.shortname) };
   }
+
+  createMarkup: function() {
+    return {__html:
+      this.props.useNative
+        ? emojione.shortnameToUnicode(this.props.shortname)
+        : emojione.shortnameToImage(this.props.shortname)
+    };
+  },
 
   _handleKeyUp = ev => {
     ev.preventDefault();
