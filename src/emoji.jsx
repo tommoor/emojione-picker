@@ -1,22 +1,27 @@
-import React from 'react';
-import emojione from 'emojione';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import pick from "lodash/pick";
+import emojione from "emojione";
 
-const Emoji = React.createClass({
-  propTypes: {
-    onKeyUp: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    useNative: React.PropTypes.bool,
-    ariaLabel: React.PropTypes.string,
-    name: React.PropTypes.string,
-    shortname: React.PropTypes.string,
-    title: React.PropTypes.string,
-    role: React.PropTypes.string
-  },
+export default class Emoji extends Component {
+  static propTypes = {
+    ariaLabel: PropTypes.string,
+    name: PropTypes.string,
+    onSelect: PropTypes.func.isRequired,
+    shortname: PropTypes.string,
+    title: PropTypes.string,
+    role: PropTypes.string,
+    useNative: React.PropTypes.bool
+  };
 
-  shouldComponentUpdate: function(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     // avoid rerendering the Emoji component if the shortname hasn't changed
     return nextProps.shortname !== this.props.shortname;
-  },
+  }
+
+  createMarkup() {
+    return { __html: emojione.shortnameToImage(this.props.shortname) };
+  }
 
   createMarkup: function() {
     return {__html:
@@ -26,11 +31,36 @@ const Emoji = React.createClass({
     };
   },
 
-  render: function() {
+  _handleKeyUp = ev => {
+    ev.preventDefault();
+    if (ev.key === "Enter" || ev.key === " ") {
+      this._handleClick(ev);
+    }
+  };
+
+  _handleClick = ev => {
+    this.props.onSelect(
+      ev,
+      pick(
+        this.props,
+        "shortname",
+        "aliases",
+        "aliases_ascii",
+        "category",
+        "name",
+        "shortcode",
+        "unicode",
+        "unicode_alternates",
+        "keywords"
+      )
+    );
+  };
+
+  render() {
     return (
       <div
-        onKeyUp={this.props.onKeyUp}
-        onClick={this.props.onClick}
+        onKeyUp={this._handleKeyUp}
+        onClick={this._handleClick}
         tabIndex="0"
         className="emoji"
         aria-label={this.props.ariaLabel}
@@ -40,6 +70,4 @@ const Emoji = React.createClass({
       />
     );
   }
-});
-
-module.exports = Emoji;
+}
