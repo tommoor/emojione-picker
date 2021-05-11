@@ -1,4 +1,8 @@
 export const defaultCategories = { // eslint-disable-line
+  frequentlyUsed: {
+    title: 'Frequently used',
+    emoji: 'clock3'
+  },
   people: {
     title: 'People',
     emoji: 'smile',

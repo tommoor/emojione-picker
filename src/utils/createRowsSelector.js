@@ -31,7 +31,7 @@ function rowsSelector(categories, emojisByCategory, modifier, search, term) {
         category,
         id
       },
-      ...chunk(emojis, 8)
+      ...chunk(emojis, 9)
     ])
     .reduce(
       (rows, categoryAndEmojiRows) => [...rows, ...categoryAndEmojiRows],
